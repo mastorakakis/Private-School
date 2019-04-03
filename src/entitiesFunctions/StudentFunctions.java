@@ -18,7 +18,7 @@ public class StudentFunctions {
     public static Student newStudent(Scanner sc) {
         int fees = 0;
         Student student = new Student();
-//        sc.nextLine();
+        sc.nextLine();
         System.out.print("Enter Student's First Name: ");
         student.setFirstName(sc.nextLine());
         System.out.print("Enter Student's Last Name: ");

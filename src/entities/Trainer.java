@@ -16,6 +16,12 @@ public class Trainer extends Person {
         this.subject = subject;
     }
 
+    public Trainer(int tId, String subject, String firstName, String lastName, String role) {
+        super(firstName, lastName, role);
+        this.tId = tId;
+        this.subject = subject;
+    }
+
     public int gettId() {
         return tId;
     }
@@ -64,7 +70,7 @@ public class Trainer extends Person {
 
     @Override
     public String toString() {
-        return tId + ". " + getFirstName() + " " + getLastName()
-                + " - Subject: " + subject;
+        return String.format("%-5s %-13s %-17s %s", tId, getFirstName(),
+                getLastName(), subject);
     }
 }

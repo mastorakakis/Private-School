@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Course extends Person {
 
-    private int cid;
+    private int cId;
     private String title;
     private String stream = " ";
     private String type = " ";
@@ -16,7 +16,7 @@ public class Course extends Person {
 
     public Course(int cid, String title, String stream, String type, Date startDate,
             Date endDate) {
-        this.cid = cid;
+        this.cId = cid;
         this.title = title;
         this.stream = stream;
         this.type = type;
@@ -24,12 +24,12 @@ public class Course extends Person {
         this.endDate = endDate.toLocalDate();
     }
 
-    public int getCid() {
-        return cid;
+    public int getcId() {
+        return cId;
     }
 
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setcId(int cId) {
+        this.cId = cId;
     }
 
     public Course() {
@@ -93,7 +93,7 @@ public class Course extends Person {
             return false;
         }
         final Course other = (Course) obj;
-        if (this.cid != other.cid) {
+        if (this.cId != other.cId) {
             return false;
         }
         if (!Objects.equals(this.title, other.title)) {
@@ -116,10 +116,8 @@ public class Course extends Person {
 
     @Override
     public String toString() {
-        return cid + ". " + title + " - " + stream + "(" + type + ")\n"
-                + "Duration: "
-                + startDate.format(DateTimeFormatter.ofPattern("d/MM/yyyy"))
-                + " - "
-                + endDate.format(DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        return String.format("%-5d %-15s %-7s %-8s %-9s - %s ", cId, title, stream, type,
+                startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 }

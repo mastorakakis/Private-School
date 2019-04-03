@@ -17,7 +17,7 @@ public class CourseFunctions {
 
     public static Course newCourse(Scanner sc) {
         Course course = new Course();
-//        sc.nextLine();
+        sc.nextLine();
         System.out.print("Enter Course Title: ");
         course.setTitle(sc.nextLine());
         while (!(course.getStream().equals("java")

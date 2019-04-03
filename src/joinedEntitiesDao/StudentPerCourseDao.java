@@ -35,7 +35,7 @@ public class StudentPerCourseDao extends GenericDao {
                 List<Student> students = new ArrayList();
                 rs.beforeFirst();
                 while (rs.next()) {
-                    if (course.getCid() == rs.getInt("c_id")) {
+                    if (course.getcId() == rs.getInt("c_id")) {
                         students.add(sd.readByStudentId(rs.getInt("st_id")));
                     }
                 }

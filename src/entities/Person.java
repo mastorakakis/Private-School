@@ -6,6 +6,7 @@ public abstract class Person {
 
     private String firstName;
     private String lastName;
+    private String role;
 
     public Person() {
     }
@@ -13,6 +14,12 @@ public abstract class Person {
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Person(String firstName, String lastName, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
     }
 
     public String getFirstName() {
@@ -25,6 +32,14 @@ public abstract class Person {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setLastName(String lastName) {

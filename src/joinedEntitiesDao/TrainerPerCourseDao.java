@@ -35,7 +35,7 @@ public class TrainerPerCourseDao extends GenericDao {
                 List<Trainer> trainers = new ArrayList();
                 rs.beforeFirst();
                 while (rs.next()) {
-                    if (course.getCid() == rs.getInt("c_id")) {
+                    if (course.getcId() == rs.getInt("c_id")) {
                         trainers.add(td.readByTrainerId(rs.getInt("t_id")));
                     }
                 }

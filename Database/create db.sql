@@ -218,4 +218,22 @@ DEFAULT CHARACTER SET = utf8;
 ALTER TABLE `private_school`.`student_password` 
 ADD COLUMN `username` VARCHAR(45) NOT NULL AFTER `st_id`,
 ADD UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-DROP INDEX `password_UNIQUE` ;
+DROP INDEX `password_UNIQUE`;
+-- -----------------------------------------------------------
+
+CREATE TABLE `private_school`.`headmaster_password` (
+  `h_id` INT NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `role_id` INT NOT NULL,
+  PRIMARY KEY (`h_id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
+  INDEX `fk_h_r_id_idx` (`role_id` ASC) VISIBLE,
+  CONSTRAINT `fk_h_r_id`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `private_school`.`roles` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+

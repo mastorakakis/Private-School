@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Assignment extends Person {
 
-    private int aid;
+    private int aId;
     private String title;
     private String description;
     private LocalDate submissionDate;
@@ -19,7 +19,7 @@ public class Assignment extends Person {
 
     public Assignment(int aid, String title, String description, int oralMark,
             int totalMark, Date submissionDate) {
-        this.aid = aid;
+        this.aId = aid;
         this.title = title;
         this.description = description;
         this.submissionDate = submissionDate.toLocalDate();
@@ -27,12 +27,12 @@ public class Assignment extends Person {
         this.totalMark = totalMark;
     }
 
-    public int getAid() {
-        return aid;
+    public int getaId() {
+        return aId;
     }
 
-    public void setAid(int aid) {
-        this.aid = aid;
+    public void setaId(int aId) {
+        this.aId = aId;
     }
 
     public LocalDate getSubmissionDate() {
@@ -93,7 +93,7 @@ public class Assignment extends Person {
             return false;
         }
         final Assignment other = (Assignment) obj;
-        if (this.aid != other.aid) {
+        if (this.aId != other.aId) {
             return false;
         }
         if (!Objects.equals(this.title, other.title)) {
@@ -107,9 +107,13 @@ public class Assignment extends Person {
 
     @Override
     public String toString() {
-        return aid + ". " + title + "\n   Description: " + description
-                + "\n   Oral Mark: " + oralMark + " / Total Mark: "
-                + totalMark + "\n   Submission Date: "
-                + submissionDate.format(DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        return "ID:" + aId
+                + "\nTITLE: " + title
+                + "\nDESCRIPTION: " + description
+                + "\nORAL MARK: " + oralMark
+                + "\nTOTAL MARK: " + totalMark
+                + "\nSUBMISSION DATE: "
+                + submissionDate.format(DateTimeFormatter.ofPattern("d/MM/yyyy"))
+                + "\n";
     }
 }

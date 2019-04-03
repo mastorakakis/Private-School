@@ -119,7 +119,7 @@ VALUES	(1, 1, "2019-02-04"),
 		(20, 3, "2019-02-15");
         
 INSERT INTO private_school.roles (id, role) 
-VALUES	('1', 'head_master'),
+VALUES	('1', 'head master'),
 		('2', 'trainer'),
 		('3', 'student');
 
@@ -180,3 +180,8 @@ VALUES  ('1', 'spir', '7b84eb993405d76c871bdf40e5e9cda7', '2'),
         ('2', 'mpog', 'f7f616238d308ccbc82783db50b4af56', '2'),
         ('3', 'anto', '2c946c0178ec72aaefa54f786540d301', '2'),
         ('4', 'pera', 'd8795f0d07280328f80e59b1e8414c49', '2');
+-- -------------------------------------------------------------------------------------------
+        
+INSERT INTO `private_school`.`headmaster_password` (`h_id`, `username`, `password`, `role_id`) 
+VALUES ('1', 'head', '96e89a298e0a9f469b9ae458d6afae9f', '1');
+

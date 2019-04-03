@@ -13,7 +13,7 @@ public class TrainerFunctions {
     //creates a trainer instance
     public static Trainer newTrainer(Scanner sc) {
         Trainer trainer = new Trainer();
-//        sc.nextLine();
+        sc.nextLine();
         System.out.print("Enter Trainer's First Name: ");
         trainer.setFirstName(sc.nextLine());
         System.out.print("Enter Trainer's Last Name: ");

@@ -17,7 +17,7 @@ public class AssignmentFunctions {
     //creates an assignment instance
     public static Assignment newAssignment(Scanner sc) {
         Assignment assignment = new Assignment();
-//        sc.nextLine();
+        sc.nextLine();
         System.out.print("Enter Assignment Title: ");
         assignment.setTitle(sc.nextLine());
         System.out.print("Enter Assignment Description: ");

@@ -78,8 +78,9 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return stId + ". " + getFirstName() + " " + getLastName() + " Birth Date: "
-                + dateOfBirth.format(DateTimeFormatter.ofPattern("d/MM/yyyy"))
-                + "\n   Tuition Fees: " + tuitionFees;
+        return String.format("%-5s %-13s %-17s %-13s %s", stId, getFirstName(),
+                getLastName(),
+                dateOfBirth.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                tuitionFees);
     }
 }

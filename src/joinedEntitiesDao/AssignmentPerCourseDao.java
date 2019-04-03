@@ -35,7 +35,7 @@ public class AssignmentPerCourseDao extends GenericDao {
                 List<Assignment> assignments = new ArrayList();
                 rs.beforeFirst();
                 while (rs.next()) {
-                    if (course.getCid() == rs.getInt("c_id")) {
+                    if (course.getcId() == rs.getInt("c_id")) {
                         assignments.add(ad.readByAssignmentId(rs.getInt("a_id")));
                     }
                 }
