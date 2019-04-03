@@ -18,12 +18,8 @@ public class AssignmentDao extends GenericDao {
 
     public List<Assignment> readAssignmentList() {
         List<Assignment> list = new ArrayList();
-        String query = "SELECT a_id, "
-                + "            title, "
-                + "            t_description, "
-                + "            oral_mark, "
-                + "            total_mark, "
-                + "            submission_date "
+        String query = "SELECT a_id, title, t_description, oral_mark, "
+                + "            total_mark, submission_date "
                 + "     FROM assignment;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
@@ -45,12 +41,8 @@ public class AssignmentDao extends GenericDao {
     }
 
     public Assignment readByAssignmentId(int id) {
-        String query = "SELECT a_id, "
-                + "            title, "
-                + "            t_description, "
-                + "            oral_mark, "
-                + "            total_mark, "
-                + "            submission_date "
+        String query = "SELECT a_id, title, t_description, oral_mark, "
+                + "            total_mark, submission_date "
                 + "     FROM assignment "
                 + "     WHERE a_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
@@ -73,11 +65,9 @@ public class AssignmentDao extends GenericDao {
 
     public Assignment createNewAssignment(Scanner sc) {
         Assignment assignment = AssignmentFunctions.newAssignment(sc);
-        String query = "INSERT INTO private_school.assignment (a_id, title, "
-                + "                                            t_description, "
-                + "                                            oral_mark, "
-                + "                                            total_mark, "
-                + "                                            submission_date)"
+        String query = "INSERT INTO private_school.assignment "
+                + "         (a_id, title, t_description, oral_mark, "
+                + "             total_mark, submission_date)"
                 + "     VALUES (DEFAULT, ?, ?, ?, ?, ?);";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         PreparedStatement pst = db.MyPreparedStatement();

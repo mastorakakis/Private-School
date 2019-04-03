@@ -1,4 +1,4 @@
-package joinedTablesFunctions;
+package joinedEntitiesFunctions;
 
 public class AssignmentPerCourseFucntions {
 

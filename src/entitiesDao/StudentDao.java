@@ -17,11 +17,8 @@ public class StudentDao extends GenericDao {
 
     public List<Student> readStudentList() {
         List<Student> list = new ArrayList();
-        String query = "SELECT st_id, "
-                + "            first_name, "
-                + "            last_name, "
-                + "            date_of_birth, "
-                + "            tuition_fees "
+        String query = "SELECT st_id, first_name, last_name, "
+                + "            date_of_birth, tuition_fees "
                 + "     FROM student;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
@@ -42,11 +39,8 @@ public class StudentDao extends GenericDao {
     }
 
     public Student readByStudentId(int id) {
-        String query = "SELECT st_id, "
-                + "            first_name, "
-                + "            last_name, "
-                + "            date_of_birth, "
-                + "            tuition_fees "
+        String query = "SELECT st_id, first_name, last_name, "
+                + "            date_of_birth, tuition_fees "
                 + "     FROM student"
                 + "     WHERE st_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
@@ -68,10 +62,9 @@ public class StudentDao extends GenericDao {
 
     public Student createNewStudent(Scanner sc) {
         Student student = StudentFunctions.newStudent(sc);
-        String query = "INSERT INTO private_school.student (st_id, first_name, "
-                + "                                        last_name, "
-                + "                                        date_of_birth, "
-                + "                                        tuition_fees)"
+        String query = "INSERT INTO private_school.student "
+                + "         (st_id, first_name, last_name, "
+                + "             date_of_birth, tuition_fees)"
                 + "     VALUES (DEFAULT, ?, ?, ?, ?);";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         PreparedStatement pst = db.MyPreparedStatement();

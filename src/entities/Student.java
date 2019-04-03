@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Student extends Entity {
+public class Student extends Person {
 
     private int stId;
     private LocalDate dateOfBirth;
@@ -47,15 +47,8 @@ public class Student extends Entity {
     }
 
     @Override
-    public String toString() {
-        return stId + ". " + getFirstName() + " " + getLastName() + " Birth Date: "
-                + dateOfBirth.format(DateTimeFormatter.ofPattern("d/MM/yyyy"))
-                + "\n   Tuition Fees: " + tuitionFees;
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         return hash;
     }
 
@@ -71,13 +64,22 @@ public class Student extends Entity {
             return false;
         }
         final Student other = (Student) obj;
-        if (!Objects.equals(this.getFirstName(), other.getFirstName())) {
+        if (!super.equals((Person) obj)) {
             return false;
         }
-        if (!Objects.equals(this.getLastName(), other.getLastName())) {
+        if (this.stId != other.stId) {
+            return false;
+        }
+        if (!Objects.equals(this.dateOfBirth, other.dateOfBirth)) {
             return false;
         }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return stId + ". " + getFirstName() + " " + getLastName() + " Birth Date: "
+                + dateOfBirth.format(DateTimeFormatter.ofPattern("d/MM/yyyy"))
+                + "\n   Tuition Fees: " + tuitionFees;
+    }
 }

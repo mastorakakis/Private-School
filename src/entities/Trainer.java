@@ -2,7 +2,7 @@ package entities;
 
 import java.util.Objects;
 
-public class Trainer extends Entity {
+public class Trainer extends Person {
 
     private int tId;
     private String subject;
@@ -33,12 +33,6 @@ public class Trainer extends Entity {
     }
 
     @Override
-    public String toString() {
-        return tId + ". " + getFirstName() + " " + getLastName()
-                + " - Subject: " + subject;
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
         return hash;
@@ -56,13 +50,21 @@ public class Trainer extends Entity {
             return false;
         }
         final Trainer other = (Trainer) obj;
-        if (!Objects.equals(getFirstName(), other.getFirstName())) {
+        if (!super.equals((Person) obj)) {
             return false;
         }
-        if (!Objects.equals(getLastName(), other.getLastName())) {
+        if (this.tId != other.tId) {
+            return false;
+        }
+        if (!Objects.equals(this.subject, other.subject)) {
             return false;
         }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return tId + ". " + getFirstName() + " " + getLastName()
+                + " - Subject: " + subject;
+    }
 }

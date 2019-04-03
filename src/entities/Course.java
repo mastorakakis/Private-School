@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Course extends Entity {
+public class Course extends Person {
 
     private int cid;
     private String title;
@@ -93,6 +93,9 @@ public class Course extends Entity {
             return false;
         }
         final Course other = (Course) obj;
+        if (this.cid != other.cid) {
+            return false;
+        }
         if (!Objects.equals(this.title, other.title)) {
             return false;
         }
@@ -100,6 +103,12 @@ public class Course extends Entity {
             return false;
         }
         if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (!Objects.equals(this.startDate, other.startDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.endDate, other.endDate)) {
             return false;
         }
         return true;

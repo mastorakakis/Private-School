@@ -1,6 +1,6 @@
-package menus;
+package views;
 
-import entities.Entity;
+import entities.Person;
 import entitiesDao.GenericDao;
 import entitiesDao.StudentDao;
 import entitiesDao.TrainerDao;
@@ -21,7 +21,7 @@ import usernamePasswordFunctions.Password;
 
 public class Login extends GenericDao {
 
-    public static Entity prompt(Scanner sc) {
+    public static Person prompt(Scanner sc) {
         System.out.print("Username: ");
         String loginUsername = sc.next();
         System.out.print("Password: ");

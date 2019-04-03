@@ -17,12 +17,8 @@ public class CourseDao extends GenericDao {
 
     public List<Course> readCourseList() {
         List<Course> list = new ArrayList();
-        String query = "SELECT c_id, "
-                + "             title, "
-                + "             stream_name, "
-                + "             type_name, "
-                + "             start_date, "
-                + "             end_date "
+        String query = "SELECT c_id, title, stream_name, type_name, "
+                + "             start_date, end_date "
                 + "     FROM course "
                 + "         NATURAL JOIN stream	"
                 + "             NATURAL JOIN c_type "
@@ -47,12 +43,8 @@ public class CourseDao extends GenericDao {
     }
 
     public Course readByCourseId(int id) {
-        String query = "SELECT c_id, "
-                + "             title, "
-                + "             stream_name, "
-                + "             type_name, "
-                + "             start_date, "
-                + "             end_date "
+        String query = "SELECT c_id, title, stream_name, type_name, "
+                + "             start_date, end_date "
                 + "     FROM course "
                 + "         NATURAL JOIN stream	"
                 + "             NATURAL JOIN c_type "
@@ -76,10 +68,9 @@ public class CourseDao extends GenericDao {
 
     public Course createNewCourse(Scanner sc) {
         Course course = CourseFunctions.newCourse(sc);
-        String query = "INSERT INTO private_school.course (c_id, title, "
-                + "                                        stream_id, type_id, "
-                + "                                        start_date, "
-                + "                                        end_date)"
+        String query = "INSERT INTO private_school.course "
+                + "         (c_id, title, stream_id, type_id, "
+                + "             start_date, end_date)"
                 + "     VALUES (DEFAULT, ?, ?, ?, ?, ?);";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         PreparedStatement pst = db.MyPreparedStatement();

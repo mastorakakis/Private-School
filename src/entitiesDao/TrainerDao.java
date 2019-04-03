@@ -17,10 +17,7 @@ public class TrainerDao extends GenericDao {
 
     public List<Trainer> readTrainerList() {
         List<Trainer> list = new ArrayList();
-        String query = "SELECT t_id, "
-                + "            first_name, "
-                + "            last_name, "
-                + "            t_subject "
+        String query = "SELECT t_id, first_name, last_name, t_subject "
                 + "     FROM trainer;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
@@ -41,10 +38,7 @@ public class TrainerDao extends GenericDao {
     }
 
     public Trainer readByTrainerId(int id) {
-        String query = "SELECT t_id, "
-                + "             first_name, "
-                + "             last_name, "
-                + "             t_subject "
+        String query = "SELECT t_id, first_name, last_name, t_subject "
                 + "     FROM trainer"
                 + "     WHERE t_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
@@ -66,9 +60,8 @@ public class TrainerDao extends GenericDao {
 
     public Trainer createNewTrainer(Scanner sc) {
         Trainer trainer = TrainerFunctions.newTrainer(sc);
-        String query = "INSERT INTO private_school.trainer (t_id, first_name, "
-                + "                                        last_name, "
-                + "                                        t_subject) "
+        String query = "INSERT INTO private_school.trainer "
+                + "         (t_id, first_name, last_name, t_subject) "
                 + "     VALUES (DEFAULT, ?, ?, ?);";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         PreparedStatement pst = db.MyPreparedStatement();
@@ -80,8 +73,7 @@ public class TrainerDao extends GenericDao {
     public Trainer updateByTrainerId(int id, Scanner sc) {
         Trainer trainer = TrainerFunctions.newTrainer(sc);
         String query = "UPDATE trainer "
-                + "     SET first_name = ?, last_name = ?, "
-                + "     t_subject = ? "
+                + "     SET first_name = ?, last_name = ?, t_subject = ? "
                 + "     WHERE t_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         PreparedStatement pst = db.MyPreparedStatement();

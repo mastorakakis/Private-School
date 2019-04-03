@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Assignment extends Entity {
+public class Assignment extends Person {
 
     private int aid;
     private String title;
@@ -76,16 +76,8 @@ public class Assignment extends Entity {
     }
 
     @Override
-    public String toString() {
-        return aid + ". " + title + "\n   Description: " + description
-                + "\n   Oral Mark: " + oralMark + " / Total Mark: "
-                + totalMark + "\n   Submission Date: "
-                + submissionDate.format(DateTimeFormatter.ofPattern("d/MM/yyyy"));
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
         return hash;
     }
 
@@ -101,10 +93,7 @@ public class Assignment extends Entity {
             return false;
         }
         final Assignment other = (Assignment) obj;
-        if (this.oralMark != other.oralMark) {
-            return false;
-        }
-        if (this.totalMark != other.totalMark) {
+        if (this.aid != other.aid) {
             return false;
         }
         if (!Objects.equals(this.title, other.title)) {
@@ -113,10 +102,14 @@ public class Assignment extends Entity {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.submissionDate, other.submissionDate)) {
-            return false;
-        }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return aid + ". " + title + "\n   Description: " + description
+                + "\n   Oral Mark: " + oralMark + " / Total Mark: "
+                + totalMark + "\n   Submission Date: "
+                + submissionDate.format(DateTimeFormatter.ofPattern("d/MM/yyyy"));
+    }
 }
