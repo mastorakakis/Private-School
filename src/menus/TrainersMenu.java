@@ -1,14 +1,14 @@
 package menus;
 
-import entities.Person;
+import entities.User;
 import entitiesDao.StudentDao;
 import entitiesDao.TrainerDao;
 import java.util.Scanner;
-import prints.Print;
+import methods.Print;
 
 public class TrainersMenu {
 
-    public static void options(Scanner sc, Person user) {
+    public static void options(Scanner sc, User user) {
         TrainerDao td = new TrainerDao();
         String role = user.getRole();
         String choice;
@@ -17,10 +17,10 @@ public class TrainersMenu {
             do {
                 System.out.println("");
                 System.out.println("----TRAINERS MENU-----");
-                System.out.println("Press:  '1' to View All Trainers");
-                System.out.println("        '2' to Create a Trainer");
-                System.out.println("        '3' to Edit a Trainer");
-                System.out.println("        '4' to Delete a Trainer");
+                System.out.println("Press:  '1' to View  All Trainers");
+                System.out.println("        '2' to Create  a Trainer");
+                System.out.println("        '3' to Edit    a Trainer");
+                System.out.println("        '4' to Delete  a Trainer");
                 System.out.println("        'X' to exit");
                 System.out.print("Your option: ");
                 choice = sc.next();

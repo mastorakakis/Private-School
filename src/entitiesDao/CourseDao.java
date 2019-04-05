@@ -19,9 +19,9 @@ public class CourseDao extends GenericDao {
         List<Course> list = new ArrayList();
         String query = "SELECT c_id, title, stream_name, type_name, "
                 + "             start_date, end_date "
-                + "     FROM course "
-                + "         NATURAL JOIN stream	"
-                + "             NATURAL JOIN c_type "
+                + "     FROM courses "
+                + "         NATURAL JOIN streams	"
+                + "             NATURAL JOIN c_types "
                 + "     ORDER BY c_id;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
@@ -45,9 +45,9 @@ public class CourseDao extends GenericDao {
     public Course readByCourseId(int id) {
         String query = "SELECT c_id, title, stream_name, type_name, "
                 + "             start_date, end_date "
-                + "     FROM course "
-                + "         NATURAL JOIN stream	"
-                + "             NATURAL JOIN c_type "
+                + "     FROM courses "
+                + "         NATURAL JOIN streams	"
+                + "             NATURAL JOIN c_types "
                 + "     WHERE c_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         Course course = null;
@@ -68,7 +68,7 @@ public class CourseDao extends GenericDao {
 
     public Course createNewCourse(Scanner sc) {
         Course course = CourseFunctions.newCourse(sc);
-        String query = "INSERT INTO private_school.course "
+        String query = "INSERT INTO private_school.courses "
                 + "         (c_id, title, stream_id, type_id, "
                 + "             start_date, end_date)"
                 + "     VALUES (DEFAULT, ?, ?, ?, ?, ?);";
@@ -81,7 +81,7 @@ public class CourseDao extends GenericDao {
 
     public Course updateByCourseId(int id, Scanner sc) {
         Course course = CourseFunctions.newCourse(sc);
-        String query = "UPDATE course "
+        String query = "UPDATE courses "
                 + "     SET title = ?, stream_id = ?, type_id = ?, "
                 + "     start_date = ?, end_date = ? "
                 + "     WHERE c_id = ?;";
@@ -93,7 +93,7 @@ public class CourseDao extends GenericDao {
     }
 
     public void deleteByCourseId(int id) {
-        String query = "DELETE FROM course WHERE c_id = ?;";
+        String query = "DELETE FROM courses WHERE c_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         db.MyPreparedStatement(id);
         db.closeConnections();

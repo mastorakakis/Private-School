@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Assignment extends Person {
+public class Assignment extends User {
 
     private int aId;
     private String title;

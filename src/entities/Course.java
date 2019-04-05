@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Course extends Person {
+public class Course extends User {
 
     private int cId;
     private String title;

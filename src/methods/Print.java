@@ -1,4 +1,4 @@
-package prints;
+package methods;
 
 import entities.Assignment;
 import entities.Course;

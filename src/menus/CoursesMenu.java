@@ -1,13 +1,13 @@
 package menus;
 
-import entities.Person;
+import entities.User;
 import entitiesDao.CourseDao;
 import java.util.Scanner;
-import prints.Print;
+import methods.Print;
 
 public class CoursesMenu {
 
-    public static void options(Scanner sc, Person user) {
+    public static void options(Scanner sc, User user) {
         CourseDao cd = new CourseDao();
         String role = user.getRole();
         String choice;
@@ -18,7 +18,7 @@ public class CoursesMenu {
                 System.out.println("----COURSES MENU-----");
                 System.out.println("Press:  '1' to View All Courses");
                 System.out.println("        '2' to Create a Course");
-                System.out.println("        '3' to Edit a Course");
+                System.out.println("        '3' to Edit   a Course");
                 System.out.println("        '4' to Delete a Course");
                 System.out.println("        'X' to exit");
                 System.out.print("Your option: ");

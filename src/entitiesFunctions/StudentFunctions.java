@@ -1,6 +1,7 @@
 package entitiesFunctions;
 
 import entities.Student;
+import entitiesDao.RoleDao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class StudentFunctions {
     public static Student newStudent(Scanner sc) {
         int fees = 0;
         Student student = new Student();
-        sc.nextLine();
+//        sc.nextLine();
         System.out.print("Enter Student's First Name: ");
         student.setFirstName(sc.nextLine());
         System.out.print("Enter Student's Last Name: ");
@@ -50,6 +51,7 @@ public class StudentFunctions {
             fees = sc.nextInt();
         } while (fees < 0);
         student.setTuitionFees(fees);
+        student.setRole("student");
         return student;
     }
 

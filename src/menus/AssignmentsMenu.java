@@ -1,14 +1,13 @@
 package menus;
 
-import entities.Person;
+import entities.User;
 import entitiesDao.AssignmentDao;
-import entitiesDao.StudentDao;
 import java.util.Scanner;
-import prints.Print;
+import methods.Print;
 
 public class AssignmentsMenu {
 
-    public static void options(Scanner sc, Person user) {
+    public static void options(Scanner sc, User user) {
         AssignmentDao sd = new AssignmentDao();
         String role = user.getRole();
         String choice;
@@ -17,10 +16,10 @@ public class AssignmentsMenu {
             do {
                 System.out.println("");
                 System.out.println("----ASSIGNMENTS MENU-----");
-                System.out.println("Press:  '1' to View All Assignments");
-                System.out.println("        '2' to Create a Assignment");
-                System.out.println("        '3' to Edit a Assignment");
-                System.out.println("        '4' to Delete a Assignment");
+                System.out.println("Press:  '1' to View  All Assignments");
+                System.out.println("        '2' to Create an Assignment");
+                System.out.println("        '3' to Edit   an Assignment");
+                System.out.println("        '4' to Delete an Assignment");
                 System.out.println("        'X' to exit");
                 System.out.print("Your option: ");
                 choice = sc.next();

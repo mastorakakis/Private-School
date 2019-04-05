@@ -1,4 +1,4 @@
-package usernamePasswordFunctions;
+package methods;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

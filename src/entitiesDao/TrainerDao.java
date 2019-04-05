@@ -1,6 +1,7 @@
 package entitiesDao;
 
 import entities.Trainer;
+import entities.User;
 import entitiesFunctions.TrainerFunctions;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class TrainerDao extends GenericDao {
     public List<Trainer> readTrainerList() {
         List<Trainer> list = new ArrayList();
         String query = "SELECT t_id, first_name, last_name, t_subject "
-                + "     FROM trainer;";
+                + "     FROM trainers;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
         try {
@@ -39,7 +40,7 @@ public class TrainerDao extends GenericDao {
 
     public Trainer readByTrainerId(int id) {
         String query = "SELECT t_id, first_name, last_name, t_subject "
-                + "     FROM trainer"
+                + "     FROM trainers"
                 + "     WHERE t_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         Trainer trainer = null;
@@ -59,10 +60,12 @@ public class TrainerDao extends GenericDao {
     }
 
     public Trainer createNewTrainer(Scanner sc) {
+        UserDao ud = new UserDao();
+        User user = ud.createNewUser(sc, "trainer");
         Trainer trainer = TrainerFunctions.newTrainer(sc);
-        String query = "INSERT INTO private_school.trainer "
-                + "         (t_id, first_name, last_name, t_subject) "
-                + "     VALUES (DEFAULT, ?, ?, ?);";
+        String query = "INSERT INTO private_school.trainers "
+                + "         (t_id, first_name, last_name, t_subject, u_id) "
+                + "     VALUES (DEFAULT, ?, ?, ?, '" + ud.readMaxUid() + "');";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         PreparedStatement pst = db.MyPreparedStatement();
         TrainerFunctions.addToTrainerTable(db, pst, trainer, query, 0);
@@ -72,7 +75,7 @@ public class TrainerDao extends GenericDao {
 
     public Trainer updateByTrainerId(int id, Scanner sc) {
         Trainer trainer = TrainerFunctions.newTrainer(sc);
-        String query = "UPDATE trainer "
+        String query = "UPDATE trainers "
                 + "     SET first_name = ?, last_name = ?, t_subject = ? "
                 + "     WHERE t_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
@@ -83,7 +86,7 @@ public class TrainerDao extends GenericDao {
     }
 
     public void deleteByTrainerId(int id) {
-        String query = "DELETE FROM trainer WHERE t_id = ?;";
+        String query = "DELETE FROM trainers WHERE t_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         db.MyPreparedStatement(id);
         db.closeConnections();

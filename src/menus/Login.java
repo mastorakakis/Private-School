@@ -1,50 +1,39 @@
 package menus;
 
-import entities.HeadMaster;
-import entities.Person;
-import entities.Student;
-import entities.Trainer;
+import entities.User;
 import entitiesDao.GenericDao;
-import entitiesDao.StudentDao;
-import entitiesDao.TrainerDao;
+import entitiesDao.UserDao;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import usernamePassword.UsernamePassword;
-import usernamePasswordDao.HeadMasterUsernamePasswordDao;
-import usernamePasswordDao.StudentUsernamePasswordDao;
-import usernamePasswordDao.TrainerUsernamePasswordDao;
-import usernamePasswordFunctions.Password;
+import methods.Password;
 
 public class Login extends GenericDao {
 
-    public static Person prompt(Scanner sc, String loginUsername) {
-
+    public static String prompt(Scanner sc) {
+        String action;
+        List<User> list = new ArrayList();
+        list = new UserDao().readUserList();
+        System.out.println("Login");
+        System.out.print("Username: ");
+        String loginUsername = sc.next();
+        if (loginUsername.equals("exit")) {
+            return "exit";
+        }
         System.out.print("Password: ");
-//        String loginPassword = Password.encrypt(sc.next());
-        String loginPassword = "96e89a298e0a9f469b9ae458d6afae9f";
-        List<UsernamePassword> list = new ArrayList();
-        list = new StudentUsernamePasswordDao().readStudentUsernamePasswordList();
-        list.addAll(new TrainerUsernamePasswordDao().readTrainerUsernamePasswordList());
-        list.addAll(new HeadMasterUsernamePasswordDao().readHeadUsernamePasswordList());
-        for (UsernamePassword u : list) {
-            if (u.getUsername().equals(loginUsername) && u.getPassword().equals(loginPassword)) {
-                if (u.getRole().equals("student")) {
-                    Student s = new StudentDao().readByStudentId(u.getId());
-                    s.setRole("student");
-                    return s;
-                } else if (u.getRole().equals("trainer")) {
-                    Trainer t = new TrainerDao().readByTrainerId(u.getId());
-                    t.setRole("trainer");
-                    return t;
-                } else if (u.getRole().equals("head master")) {
-                    HeadMaster h = new HeadMaster();
-                    h.setRole("head master");
-                    return h;
-                }
+        String loginPassword = Password.encrypt(sc.next());
+        System.out.println(loginPassword);
+//        String loginPassword = "96e89a298e0a9f469b9ae458d6afae9f";
+        for (User user : list) {
+            if (user.getUsername().equals(loginUsername)
+                    && user.getPassword().equals(loginPassword)) {
+                EntryMenu.options(sc, user);
+            } else {
+                System.out.println("Wrong username or password");
+                return "try again";
             }
         }
-        return null;
+        return "try again"; //action;
     }
 }

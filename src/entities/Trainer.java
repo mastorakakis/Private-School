@@ -2,24 +2,38 @@ package entities;
 
 import java.util.Objects;
 
-public class Trainer extends Person {
+public class Trainer extends User {
 
     private int tId;
+    private String firstName;
+    private String lastName;
     private String subject;
 
     public Trainer() {
     }
 
-    public Trainer(int tId, String firstName, String lastName, String subject) {
-        super(firstName, lastName);
+    public Trainer(int tId, String firstName, String lastName,
+            String subject) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.tId = tId;
         this.subject = subject;
     }
 
-    public Trainer(int tId, String subject, String firstName, String lastName, String role) {
-        super(firstName, lastName, role);
-        this.tId = tId;
-        this.subject = subject;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int gettId() {
@@ -40,7 +54,7 @@ public class Trainer extends Person {
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         return hash;
     }
 
@@ -56,10 +70,10 @@ public class Trainer extends Person {
             return false;
         }
         final Trainer other = (Trainer) obj;
-        if (!super.equals((Person) obj)) {
+        if (!Objects.equals(this.firstName, other.firstName)) {
             return false;
         }
-        if (this.tId != other.tId) {
+        if (!Objects.equals(this.lastName, other.lastName)) {
             return false;
         }
         if (!Objects.equals(this.subject, other.subject)) {
@@ -70,7 +84,7 @@ public class Trainer extends Person {
 
     @Override
     public String toString() {
-        return String.format("%-5s %-13s %-17s %s", tId, getFirstName(),
-                getLastName(), subject);
+        return String.format("%-5s %-13s %-17s %s", tId, firstName, lastName,
+                subject);
     }
 }

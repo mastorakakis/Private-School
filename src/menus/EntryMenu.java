@@ -1,11 +1,11 @@
 package menus;
 
-import entities.Person;
+import entities.User;
 import java.util.Scanner;
 
 public class EntryMenu {
 
-    public static Person options(Scanner sc, Person user) {
+    public static User options(Scanner sc, User user) {
         String role = user.getRole();
         String choice;
         if (role.equals("head master")) {

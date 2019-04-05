@@ -20,7 +20,7 @@ public class AssignmentDao extends GenericDao {
         List<Assignment> list = new ArrayList();
         String query = "SELECT a_id, title, t_description, oral_mark, "
                 + "            total_mark, submission_date "
-                + "     FROM assignment;";
+                + "     FROM assignments;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
         try {
@@ -43,7 +43,7 @@ public class AssignmentDao extends GenericDao {
     public Assignment readByAssignmentId(int id) {
         String query = "SELECT a_id, title, t_description, oral_mark, "
                 + "            total_mark, submission_date "
-                + "     FROM assignment "
+                + "     FROM assignments "
                 + "     WHERE a_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         Assignment assignment = null;
@@ -65,7 +65,7 @@ public class AssignmentDao extends GenericDao {
 
     public Assignment createNewAssignment(Scanner sc) {
         Assignment assignment = AssignmentFunctions.newAssignment(sc);
-        String query = "INSERT INTO private_school.assignment "
+        String query = "INSERT INTO private_school.assignments "
                 + "         (a_id, title, t_description, oral_mark, "
                 + "             total_mark, submission_date)"
                 + "     VALUES (DEFAULT, ?, ?, ?, ?, ?);";
@@ -78,7 +78,7 @@ public class AssignmentDao extends GenericDao {
 
     public Assignment updateByAssignmentId(int id, Scanner sc) {
         Assignment assignment = AssignmentFunctions.newAssignment(sc);
-        String query = "UPDATE assignment "
+        String query = "UPDATE assignments "
                 + "     SET title = ?, t_description = ?, oral_mark = ?, "
                 + "     total_mark = ?, submission_date = ? "
                 + "     WHERE a_id = ?;";
@@ -90,7 +90,7 @@ public class AssignmentDao extends GenericDao {
     }
 
     public void deleteByAssignmentId(int id) {
-        String query = "DELETE FROM assignment WHERE a_id = ?;";
+        String query = "DELETE FROM assignments WHERE a_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         db.MyPreparedStatement(id);
         db.closeConnections();

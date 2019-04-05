@@ -5,21 +5,40 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Student extends Person {
+public class Student extends User {
 
     private int stId;
+    private String firstName;
+    private String lastName;
     private LocalDate dateOfBirth;
     private int tuitionFees;
 
     public Student() {
     }
 
-    public Student(int sid, String firstName, String lastName,
+    public Student(int sId, String firstName, String lastName,
             Date dateOfBirth, int tuitionFees) {
-        super(firstName, lastName);
-        this.stId = sid;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.stId = sId;
         this.dateOfBirth = dateOfBirth.toLocalDate();
         this.tuitionFees = tuitionFees;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getStId() {
@@ -48,7 +67,7 @@ public class Student extends Person {
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         return hash;
     }
 
@@ -64,10 +83,10 @@ public class Student extends Person {
             return false;
         }
         final Student other = (Student) obj;
-        if (!super.equals((Person) obj)) {
+        if (!Objects.equals(this.firstName, other.firstName)) {
             return false;
         }
-        if (this.stId != other.stId) {
+        if (!Objects.equals(this.lastName, other.lastName)) {
             return false;
         }
         if (!Objects.equals(this.dateOfBirth, other.dateOfBirth)) {
@@ -78,8 +97,8 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return String.format("%-5s %-13s %-17s %-13s %s", stId, getFirstName(),
-                getLastName(),
+        return String.format("%-5s %-13s %-17s %-13s %s", stId, firstName,
+                lastName,
                 dateOfBirth.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 tuitionFees);
     }
