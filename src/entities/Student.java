@@ -16,11 +16,11 @@ public class Student extends User {
     public Student() {
     }
 
-    public Student(int sId, String firstName, String lastName,
+    public Student(int stId, String firstName, String lastName,
             Date dateOfBirth, int tuitionFees) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.stId = sId;
+        this.stId = stId;
         this.dateOfBirth = dateOfBirth.toLocalDate();
         this.tuitionFees = tuitionFees;
     }
