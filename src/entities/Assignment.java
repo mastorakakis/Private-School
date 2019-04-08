@@ -107,7 +107,7 @@ public class Assignment extends User {
 
     @Override
     public String toString() {
-        return "ID:" + aId
+        return "A-ID:" + aId
                 + "\nTITLE: " + title
                 + "\nDESCRIPTION: " + description
                 + "\nORAL MARK: " + oralMark

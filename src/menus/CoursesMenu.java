@@ -3,7 +3,7 @@ package menus;
 import entities.User;
 import entitiesDao.CourseDao;
 import java.util.Scanner;
-import methods.Print;
+import functions.Print;
 
 public class CoursesMenu {
 
@@ -25,7 +25,7 @@ public class CoursesMenu {
                 choice = sc.next();
                 switch (choice) {
                     case "1":
-                        Print.course(cd.readCourseList());
+                        Print.courses(cd.readCourseList());
                         System.out.print("Press enter to continue...");
                         sc.nextLine();
                         sc.nextLine();
@@ -34,13 +34,13 @@ public class CoursesMenu {
                         cd.createNewCourse(sc);
                         break;
                     case "3":
-                        Print.course(cd.readCourseList());
+                        Print.courses(cd.readCourseList());
                         System.out.print("Choose a course: ");
                         id = sc.nextInt();
                         cd.updateByCourseId(id, sc);
                         break;
                     case "4":
-                        Print.course(cd.readCourseList());
+                        Print.courses(cd.readCourseList());
                         System.out.print("Choose a course: ");
                         id = sc.nextInt();
                         cd.deleteByCourseId(id);

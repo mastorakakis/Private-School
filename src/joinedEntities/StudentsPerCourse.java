@@ -4,15 +4,15 @@ import entities.Course;
 import entities.Student;
 import java.util.List;
 
-public class StudentPerCourse {
+public class StudentsPerCourse {
 
     private Course course;
     private List<Student> students;
 
-    public StudentPerCourse() {
+    public StudentsPerCourse() {
     }
 
-    public StudentPerCourse(Course course, List<Student> student) {
+    public StudentsPerCourse(Course course, List<Student> student) {
         this.course = course;
         this.students = student;
     }

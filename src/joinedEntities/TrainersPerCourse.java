@@ -4,15 +4,15 @@ import entities.Course;
 import entities.Trainer;
 import java.util.List;
 
-public class TrainerPerCourse {
+public class TrainersPerCourse {
 
     private Course course;
     private List<Trainer> trainers;
 
-    public TrainerPerCourse() {
+    public TrainersPerCourse() {
     }
 
-    public TrainerPerCourse(Course course, List<Trainer> courses) {
+    public TrainersPerCourse(Course course, List<Trainer> courses) {
         this.course = course;
         this.trainers = courses;
     }

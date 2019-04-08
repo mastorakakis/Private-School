@@ -27,7 +27,7 @@ public class MainClass {
             if (action.equals("exit")) {
                 break;
             }
-        } while (action.equals("try again"));
+        } while (action.equals("login again"));
 
 //        String query = "insert into students (st_id, first_name, last_name, tuition_fees, u_id) values (default, 'dfsgf', 'sfgfg', 2005, 21)";
 //        String URL

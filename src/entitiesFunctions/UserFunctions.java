@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import myDatabase.MyDatabase;
 import xtoDeleteFiles.UsernamePassword;
-import methods.Password;
+import functions.Password;
 
 public class UserFunctions {
 

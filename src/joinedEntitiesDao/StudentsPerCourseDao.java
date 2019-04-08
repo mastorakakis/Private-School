@@ -1,27 +1,27 @@
 package joinedEntitiesDao;
 
 import entitiesDao.GenericDao;
-import joinedEntities.AssignmentPerCourse;
-import entities.Assignment;
 import entities.Course;
-import entitiesDao.AssignmentDao;
+import entities.Student;
 import entitiesDao.CourseDao;
+import entitiesDao.StudentDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import joinedEntities.StudentsPerCourse;
 import myDatabase.MyDatabase;
 
-public class AssignmentPerCourseDao extends GenericDao {
+public class StudentsPerCourseDao extends GenericDao {
 
     CourseDao cd = new CourseDao();
-    AssignmentDao ad = new AssignmentDao();
+    StudentDao sd = new StudentDao();
 
-    public List<AssignmentPerCourse> readAssignmentPerCourseList() {
-        String query = "SELECT * FROM private_school.assignment_course;";
-        List<AssignmentPerCourse> list = new ArrayList();
+    public List<StudentsPerCourse> readStudentPerCourseList() {
+        String query = "SELECT * FROM private_school.students_course;";
+        List<StudentsPerCourse> spcList = new ArrayList();
         List<Course> courses = new ArrayList();
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
@@ -32,21 +32,20 @@ public class AssignmentPerCourseDao extends GenericDao {
                 }
             }
             for (Course course : courses) {
-                List<Assignment> assignments = new ArrayList();
+                List<Student> students = new ArrayList();
                 rs.beforeFirst();
                 while (rs.next()) {
                     if (course.getcId() == rs.getInt("c_id")) {
-                        assignments.add(ad.readByAssignmentId(rs.getInt("a_id")));
+                        students.add(sd.readByStudentId(rs.getInt("st_id")));
                     }
                 }
-                list.add(new AssignmentPerCourse(course, assignments));
+                spcList.add(new StudentsPerCourse(course, students));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AssignmentPerCourseDao.class.getName())
-                    .log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentsPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             db.closeConnections();
         }
-        return list;
+        return spcList;
     }
 }

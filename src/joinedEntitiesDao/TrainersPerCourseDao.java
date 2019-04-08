@@ -2,26 +2,26 @@ package joinedEntitiesDao;
 
 import entitiesDao.GenericDao;
 import entities.Course;
-import entities.Student;
+import entities.Trainer;
 import entitiesDao.CourseDao;
-import entitiesDao.StudentDao;
+import entitiesDao.TrainerDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import joinedEntities.StudentPerCourse;
+import joinedEntities.TrainersPerCourse;
 import myDatabase.MyDatabase;
 
-public class StudentPerCourseDao extends GenericDao {
+public class TrainersPerCourseDao extends GenericDao {
 
     CourseDao cd = new CourseDao();
-    StudentDao sd = new StudentDao();
+    TrainerDao td = new TrainerDao();
 
-    public List<StudentPerCourse> readStudentPerCourseList() {
-        String query = "SELECT * FROM private_school.student_course;";
-        List<StudentPerCourse> list = new ArrayList();
+    public List<TrainersPerCourse> readTrainerPerCourseList() {
+        String query = "SELECT * FROM private_school.trainers_course;";
+        List<TrainersPerCourse> list = new ArrayList();
         List<Course> courses = new ArrayList();
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
@@ -32,17 +32,18 @@ public class StudentPerCourseDao extends GenericDao {
                 }
             }
             for (Course course : courses) {
-                List<Student> students = new ArrayList();
+                List<Trainer> trainers = new ArrayList();
                 rs.beforeFirst();
                 while (rs.next()) {
                     if (course.getcId() == rs.getInt("c_id")) {
-                        students.add(sd.readByStudentId(rs.getInt("st_id")));
+                        trainers.add(td.readByTrainerId(rs.getInt("t_id")));
                     }
                 }
-                list.add(new StudentPerCourse(course, students));
+                list.add(new TrainersPerCourse(course, trainers));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(StudentPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrainersPerCourseDao.class.getName())
+                    .log(Level.SEVERE, null, ex);
         } finally {
             db.closeConnections();
         }

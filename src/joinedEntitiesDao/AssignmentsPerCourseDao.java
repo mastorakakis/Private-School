@@ -1,27 +1,27 @@
 package joinedEntitiesDao;
 
 import entitiesDao.GenericDao;
+import joinedEntities.AssignmentsPerCourse;
+import entities.Assignment;
 import entities.Course;
-import entities.Trainer;
+import entitiesDao.AssignmentDao;
 import entitiesDao.CourseDao;
-import entitiesDao.TrainerDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import joinedEntities.TrainerPerCourse;
 import myDatabase.MyDatabase;
 
-public class TrainerPerCourseDao extends GenericDao {
+public class AssignmentsPerCourseDao extends GenericDao {
 
     CourseDao cd = new CourseDao();
-    TrainerDao td = new TrainerDao();
+    AssignmentDao ad = new AssignmentDao();
 
-    public List<TrainerPerCourse> readTrainerPerCourseList() {
-        String query = "SELECT * FROM private_school.trainer_course;";
-        List<TrainerPerCourse> list = new ArrayList();
+    public List<AssignmentsPerCourse> readAssignmentPerCourseList() {
+        String query = "SELECT * FROM private_school.assignments_course;";
+        List<AssignmentsPerCourse> list = new ArrayList();
         List<Course> courses = new ArrayList();
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
@@ -32,17 +32,17 @@ public class TrainerPerCourseDao extends GenericDao {
                 }
             }
             for (Course course : courses) {
-                List<Trainer> trainers = new ArrayList();
+                List<Assignment> assignments = new ArrayList();
                 rs.beforeFirst();
                 while (rs.next()) {
                     if (course.getcId() == rs.getInt("c_id")) {
-                        trainers.add(td.readByTrainerId(rs.getInt("t_id")));
+                        assignments.add(ad.readByAssignmentId(rs.getInt("a_id")));
                     }
                 }
-                list.add(new TrainerPerCourse(course, trainers));
+                list.add(new AssignmentsPerCourse(course, assignments));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(TrainerPerCourseDao.class.getName())
+            Logger.getLogger(AssignmentsPerCourseDao.class.getName())
                     .log(Level.SEVERE, null, ex);
         } finally {
             db.closeConnections();

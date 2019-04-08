@@ -90,7 +90,9 @@ public class StudentDao extends GenericDao {
     }
 
     public void deleteByStudentId(int id) {
-        String query = "DELETE FROM students WHERE st_id = ?;";
+        String query = "DELETE FROM users "
+                + "       WHERE u_id = "
+                + "         (SELECT u_id FROM students WHERE st_id = ?);";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         db.MyPreparedStatement(id);
         db.closeConnections();

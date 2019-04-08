@@ -4,15 +4,15 @@ import entities.Assignment;
 import entities.Course;
 import java.util.List;
 
-public class AssignmentPerCourse {
+public class AssignmentsPerCourse {
 
     private Course course;
     private List<Assignment> assigmnents;
 
-    public AssignmentPerCourse() {
+    public AssignmentsPerCourse() {
     }
 
-    public AssignmentPerCourse(Course course, List<Assignment> assigmnents) {
+    public AssignmentsPerCourse(Course course, List<Assignment> assigmnents) {
         this.course = course;
         this.assigmnents = assigmnents;
     }

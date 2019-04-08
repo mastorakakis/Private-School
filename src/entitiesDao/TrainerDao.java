@@ -86,7 +86,9 @@ public class TrainerDao extends GenericDao {
     }
 
     public void deleteByTrainerId(int id) {
-        String query = "DELETE FROM trainers WHERE t_id = ?;";
+        String query = "DELETE FROM users "
+                + "       WHERE u_id = "
+                + "         (SELECT u_id FROM trainers WHERE t_id = ?);";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         db.MyPreparedStatement(id);
         db.closeConnections();
