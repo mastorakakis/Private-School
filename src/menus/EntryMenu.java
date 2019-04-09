@@ -24,13 +24,13 @@ public class EntryMenu {
                         CoursesMenu.options(sc, user);
                         break;
                     case "2":
-                        StudentsMenu.options(sc, user);
+                        StudentMenu.options(sc, user);
                         break;
                     case "3":
                         AssignmentsMenu.options(sc, user);
                         break;
                     case "4":
-                        TrainersMenu.options(sc, user);
+                        TrainerMenu.options(sc, user);
                         break;
                     case "x":
                     case "X":

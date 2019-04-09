@@ -10,7 +10,7 @@ import myDatabase.MyDatabase;
 
 public class RoleDao extends GenericDao {
 
-    public String readRoleBytId(int id) {
+    public String readRoleById(int id) {
         String query = "SELECT r_id, role, "
                 + "         FROM roles";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);

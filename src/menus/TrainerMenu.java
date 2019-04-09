@@ -6,7 +6,7 @@ import java.util.Scanner;
 import functions.Print;
 import joinedEntitiesDao.TrainersPerCourseDao;
 
-public class TrainersMenu {
+public class TrainerMenu {
 
     public static void options(Scanner sc, User user) {
         TrainerDao td = new TrainerDao();

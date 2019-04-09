@@ -97,4 +97,24 @@ public class StudentDao extends GenericDao {
         db.MyPreparedStatement(id);
         db.closeConnections();
     }
+
+    public Student readStudentbyUid(int id) {
+        String query = "SELECT * FROM students "
+                + "     WHERE u_id = ?;";
+        MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+        Student student = null;
+        ResultSet rs = db.MyResultSet(id);
+        try {
+            rs.next();
+            student = new Student(rs.getInt("st_id"), rs.getString("first_name"),
+                    rs.getString("last_name"), rs.getDate("date_of_birth"),
+                    rs.getInt("tuition_fees"));
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDao.class.getName()).log(Level.SEVERE, null,
+                    ex);
+        } finally {
+            db.closeConnections();
+        }
+        return student;
+    }
 }

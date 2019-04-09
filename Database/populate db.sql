@@ -45,7 +45,8 @@ VALUES	(DEFAULT, "Marialena", "Spiraki", "Software Engineer", 12),
 INSERT INTO private_school.assignments (a_id, title, t_description, oral_mark, total_mark, submission_date)
 VALUES	(DEFAULT, "CB7_c#_Ex1", "You are required to produce a solution that implements a private school structure.", 20, 100, "2018-02-08"),
         (DEFAULT, "CB7_java_full_Ex1", "You must create a CardGame class to use as a base class for different card games.", 20, 100, "2019-02-08"),
-        (DEFAULT, "CB7_java_part_Ex1", "Create a class called Bunny with an int bunnyNumber initialized in the constructor.", 20, 100, "2019-02-15");
+        (DEFAULT, "CB7_java_part_Ex1", "Create a class called Bunny with an int bunnyNumber initialized in the constructor.", 20, 100, "2019-02-15"),
+        (DEFAULT, "CB7_java_part_Individual", "Create a Private School app.", 20, 100, "2019-02-15");
 -- ----------------------------------------------------------------------------------------------------
 
 INSERT INTO private_school.streams
@@ -75,7 +76,8 @@ VALUES	(1, 1),
 INSERT INTO private_school.assignments_course
 VALUES	(1, 1),
 		(2, 2),
-        (3, 3);
+        (3, 3),
+        (4, 3);
         
         
 INSERT INTO private_school.students_course
@@ -152,8 +154,7 @@ FROM
  
 ALTER TABLE private_school.assignments_students_course 
 ADD COLUMN oral_mark 		INT 	NULL 	AFTER st_id,
-ADD COLUMN total_mark 		INT 	NULL 	AFTER oral_mark,
-ADD PRIMARY KEY (c_id, a_id, st_id);
+ADD COLUMN total_mark 		INT 	NULL 	AFTER oral_mark;
 
 ALTER TABLE private_school.assignments_students_course 
 ADD CONSTRAINT fk_asc_c_id
@@ -176,8 +177,41 @@ WHERE (c_id = '1') and (a_id = '1') and (st_id = '1');
 UPDATE private_school.assignments_students_course
 SET oral_mark = '15', total_mark = '85'
 WHERE (c_id = '1') and (a_id = '1') and (st_id = '2');
+
+INSERT INTO `private_school`.`assignments_students_course` (`c_id`, `a_id`, `st_id`) 
+VALUES	('3', '3', '9'),
+		('3', '3', '10'),
+		('3', '4', '7'),
+		('3', '4', '8'),
+		('3', '4', '9'),
+		('3', '4', '10');
 -- ----------------------------------------------------------------------
 
+CREATE TABLE `private_school`.`assignments_trainers_course` (
+  `c_id` INT NOT NULL,
+  `t_id` INT NOT NULL,
+  `a_id` INT NOT NULL,
+  CONSTRAINT `fk_atc_c_id`
+    FOREIGN KEY (`c_id`) REFERENCES `private_school`.`courses` (`c_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_atc_t_id`
+    FOREIGN KEY (`t_id`) REFERENCES `private_school`.`trainers` (`t_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_atc_a_id`
+    FOREIGN KEY (`a_id`) REFERENCES `private_school`.`assignments` (`a_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+INSERT INTO `private_school`.`assignments_trainers_course` (`c_id`, `a_id`, `t_id`) 
+VALUES	('1', '1', '1'),
+		('2', '2', '2'),
+		('3', '3', '3'),
+		('3', '4', '4');
+-- ----------------------------------------------------------------------------
 
 
 

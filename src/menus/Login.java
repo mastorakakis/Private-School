@@ -2,6 +2,7 @@ package menus;
 
 import entities.User;
 import entitiesDao.GenericDao;
+import entitiesDao.RoleDao;
 import entitiesDao.UserDao;
 
 import java.util.ArrayList;
@@ -24,17 +25,29 @@ public class Login extends GenericDao {
         }
         System.out.print("Password: ");
         String loginPassword = Password.encrypt(sc.next());
-//        System.out.println(loginPassword);
-//        String loginPassword = "96e89a298e0a9f469b9ae458d6afae9f";
+        String check = "not found";
         for (User user : list) {
             if (user.getUsername().equals(loginUsername)
                     && user.getPassword().equals(loginPassword)) {
-                EntryMenu.options(sc, user);
-            } else {
-                System.out.println("Wrong username or password");
-                return "login again";
+                enter(sc, user);
+                check = "found";
             }
         }
+        if (!check.equals("found")) {
+            System.out.println("Wrong username or password");
+        }
         return "login again"; //action;
+    }
+
+    public static void enter(Scanner sc, User user) {
+        boolean check = user.getRole().equals("trainer");
+        switch (user.getRole()) {
+            case "student":
+                StudentMenu.options(sc, user);
+                break;
+            case "trainer":
+                TrainerMenu.options(sc, user);
+                break;
+        }
     }
 }
