@@ -17,6 +17,7 @@ public class Login extends GenericDao {
         String action;
         List<User> list = new ArrayList();
         list = new UserDao().readUserList();
+        System.out.println("");
         System.out.println("Login");
         System.out.print("Username: ");
         String loginUsername = sc.next();

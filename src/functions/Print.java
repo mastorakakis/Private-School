@@ -2,6 +2,8 @@ package functions;
 
 import entities.Assignment;
 import entities.Course;
+import entities.JavaObjective;
+import entities.JavaScheduleDate;
 import entities.Student;
 import entities.Trainer;
 import java.util.List;
@@ -81,6 +83,22 @@ public class Print {
             for (Assignment assignment : apc.getAssigmnents()) {
                 System.out.println(assignment);
             }
+        }
+    }
+
+    public static void javaobjectives(List<JavaObjective> list) {
+        System.out.printf("%-4s %-15s", "ID", "TITLE");
+        for (JavaObjective javaObjective : list) {
+            System.out.println(javaObjective);
+        }
+    }
+
+    public static void javaSchedule(List<JavaScheduleDate> list) {
+        System.out.println("");
+        System.out.printf("%-5s %-40s %s\n", "ID", "TITLE", "DATE");
+        System.out.println("--------------------------------------------------------------");
+        for (JavaScheduleDate javaScheduleDate : list) {
+            System.out.println(javaScheduleDate);
         }
     }
 }

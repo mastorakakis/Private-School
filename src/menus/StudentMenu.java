@@ -1,9 +1,16 @@
 package menus;
 
+import entities.Course;
+import entities.JavaScheduleDate;
 import entities.Student;
 import entities.User;
+import entitiesDao.CourseDao;
+import entitiesDao.JavaScheduleDateDao;
 import entitiesDao.StudentDao;
 import functions.Print;
+import functions.PrintSchedule;
+import functions.Reload;
+import java.util.List;
 import java.util.Scanner;
 import joinedEntitiesDao.StudentsPerCourseDao;
 
@@ -11,7 +18,7 @@ public class StudentMenu {
 
     public static void options(Scanner sc, User user) {
         StudentDao sd = new StudentDao();
-        StudentsPerCourseDao spc = new StudentsPerCourseDao();
+
         Student student = sd.readStudentbyUid(user.getuId());
         String choice;
         do {
@@ -26,9 +33,8 @@ public class StudentMenu {
             choice = sc.next();
             switch (choice) {
                 case "1":
-                    Print.courses(spc.readCoursesPerStudentByStId(student.getStId()));
-                    System.out.println("Choose a course: ");
-
+                    System.out.println("");
+                    PrintSchedule.student(student.getStId(), sc);
                     break;
                 case "2":
 
@@ -48,9 +54,13 @@ public class StudentMenu {
                     System.out.println("Invalid Option");
                     continue;
             }
-            System.out.print("Press enter to continue...");
-            sc.nextLine();
-            sc.nextLine();
+            if (choice.equals("x") || choice.equals("X")) {
+                choice = Reload.menu(choice, sc);
+            } else {
+                System.out.print("Press enter to continue...");
+                sc.nextLine();
+                sc.nextLine();
+            }
         } while (!(choice.equals("x") || choice.equals("X")));
     }
 }

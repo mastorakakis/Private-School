@@ -55,9 +55,11 @@ public class TrainerMenu {
                         System.out.println("Invalid Option. Try Again");
                         continue;
                 }
-                System.out.print("Press enter to continue...");
-                sc.nextLine();
-                sc.nextLine();
+                if (!choice.equals("x") && !choice.equals("X")) {
+                    System.out.print("Press enter to continue...");
+                    sc.nextLine();
+                    sc.nextLine();
+                }
             } while (!(choice.equals("x") || choice.equals("X")));
         }
     }

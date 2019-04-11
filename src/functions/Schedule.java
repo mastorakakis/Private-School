@@ -23,6 +23,8 @@ public class Schedule {
         return weekDays;
     }
 
-    public static void assign(int weekDays) {
+    public static void getJava(Course course) {
+
     }
+
 }

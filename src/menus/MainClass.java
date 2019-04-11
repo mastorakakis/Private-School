@@ -1,18 +1,24 @@
 package menus;
 
 import entities.Assignment;
+import entities.Course;
+import entities.JavaScheduleDate;
 import entities.Student;
 import entities.User;
 import entitiesDao.AssignmentDao;
+import entitiesDao.JavaScheduleDateDao;
 import entitiesDao.StudentDao;
 import entitiesDao.UserDao;
+import functions.Print;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import joinedEntitiesDao.StudentsPerCourseDao;
 
 public class MainClass {
 
@@ -21,6 +27,9 @@ public class MainClass {
         System.out.println("Welcome to School Data Application");
         System.out.println("(Instructions:  To navigate through the app menus choose a number and press enter)");
         System.out.println("                To exit type 'exit' in the username field");
+
+//        testing area
+//
         String action;
         do {
             action = Login.prompt(sc);

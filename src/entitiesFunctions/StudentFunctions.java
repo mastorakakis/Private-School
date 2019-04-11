@@ -1,13 +1,11 @@
 package entitiesFunctions;
 
 import entities.Student;
-import entitiesDao.RoleDao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
