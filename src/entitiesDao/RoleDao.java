@@ -1,9 +1,12 @@
 package entitiesDao;
 
 import entities.Role;
+import entities.Student;
 import static entitiesDao.GenericDao.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import myDatabase.MyDatabase;
@@ -48,4 +51,24 @@ public class RoleDao extends GenericDao {
         return id;
     }
 
+    public List<Role> readRoleList() {
+        List<Role> list = new ArrayList();
+        String query = "SELECT * "
+                + "     FROM roles;";
+        MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+        ResultSet rs = db.MyResultSet();
+        try {
+            while (rs.next()) {
+                Role role = new Role(rs.getInt("r_id"),
+                        rs.getString("role"));
+                list.add(role);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoleDao.class.getName()).log(Level.SEVERE, null,
+                    ex);
+        } finally {
+            db.closeConnections();
+        }
+        return list;
+    }
 }

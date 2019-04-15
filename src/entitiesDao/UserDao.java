@@ -63,7 +63,6 @@ public class UserDao extends GenericDao {
     public User createNewUser(Scanner sc, String role) {
         User user = UserFunctions.newUser(sc);
         int rId = new RoleDao().readIdByRole(role);
-
         String query = "INSERT INTO users "
                 + "         (u_id, username, password, r_id)"
                 + "     VALUES (DEFAULT, '" + user.getUsername() + "', '"
