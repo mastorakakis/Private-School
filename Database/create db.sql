@@ -153,10 +153,10 @@ DEFAULT CHARACTER SET = utf8;
 -- ---------------------------------------------------------------------
 
 CREATE TABLE private_school.java_objectives (
-  j_ob_id 			INT 			NOT NULL	AUTO_INCREMENT,
+  c_ob_id 			INT 			NOT NULL	AUTO_INCREMENT,
   title 			VARCHAR(45) 	NULL,
   stream_id 		INT 			NULL 		DEFAULT 1,
-  PRIMARY KEY (j_ob_id),
+  PRIMARY KEY (c_ob_id),
   CONSTRAINT fk_sjo_id
 	FOREIGN KEY (stream_id) REFERENCES private_school.streams (stream_id)
     ON DELETE CASCADE
@@ -179,20 +179,70 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------------------------------
 
 CREATE TABLE `private_school`.`java_schedule_dates` (
-  `c_id` INT NOT NULL,
-  `j_ob_id` INT NOT NULL,
-  `c_date` DATE NULL,
+  `c_id` 				INT 			NOT NULL,
+  `c_ob_id` 			INT 			NOT NULL,
+  `c_date` 				DATE 			NULL,
   CONSTRAINT `fk_js_c_id`
     FOREIGN KEY (`c_id`) REFERENCES `private_school`.`courses` (`c_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_js_jo_id`
-    FOREIGN KEY (`j_ob_id`) REFERENCES `private_school`.`java_objectives` (`j_ob_id`)
+    FOREIGN KEY (`c_ob_id`) REFERENCES `private_school`.`java_objectives` (`c_ob_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+-- ---------------------------------------------------------------------------------------------
+
+CREATE TABLE `assignments_students_course` (
+  `c_id` 				int(11) 			NOT NULL,
+  `a_id` 				int(11) 			NOT NULL,
+  `st_id` 				int(11) 			NOT NULL,
+  `oral_mark` 			int(11) 							DEFAULT 0,
+  `total_mark` 			int(11) 							DEFAULT 0,
+  `submitted` 			tinyint(4) 			NOT NULL		DEFAULT 0,
+  KEY `fk_asc_c_id` (`c_id`),
+  KEY `fk_asc_a_id` (`a_id`),
+  KEY `fk_asc_s_id` (`st_id`),
+  CONSTRAINT `fk_asc_a_id` FOREIGN KEY (`a_id`) REFERENCES `assignments` (`a_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_asc_c_id` FOREIGN KEY (`c_id`) REFERENCES `courses` (`c_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_asc_s_id` FOREIGN KEY (`st_id`) REFERENCES `students` (`st_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- -------------------------------------------------------------------------------------
+
+CREATE TABLE `private_school`.`assignments_trainers_course` (
+  `c_id` INT NOT NULL,
+  `t_id` INT NOT NULL,
+  `a_id` INT NOT NULL,
+  CONSTRAINT `fk_atc_c_id`
+    FOREIGN KEY (`c_id`) REFERENCES `private_school`.`courses` (`c_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_atc_t_id`
+    FOREIGN KEY (`t_id`) REFERENCES `private_school`.`trainers` (`t_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_atc_a_id`
+    FOREIGN KEY (`a_id`) REFERENCES `private_school`.`assignments` (`a_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+-- -----------------------------------------------------------------------------
+
+CREATE TABLE `c_schedule_dates` (
+  `c_id` 				int(11) 			NOT NULL,
+  `c_ob_id` 			int(11) 			NOT NULL,
+  `c_date` 				date 									DEFAULT NULL,
+  CONSTRAINT `fk_cs_c_id` 
+	FOREIGN KEY (`c_id`) REFERENCES `courses` (`c_id`) 
+	ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_cs_co_id` 
+	FOREIGN KEY (`c_ob_id`) REFERENCES `c_objectives` (`c_ob_id`) 
+    ON DELETE CASCADE ON UPDATE CASCADE) 
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8;
+-- -----------------------------------------------------------------------------------
 
 -- CREATE TABLE `private_school`.`trainer_password` (
 --   `t_id` INT NOT NULL,

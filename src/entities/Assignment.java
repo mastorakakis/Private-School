@@ -113,7 +113,7 @@ public class Assignment extends User {
                 + "\nORAL MARK: " + oralMark
                 + "\nTOTAL MARK: " + totalMark
                 + "\nSUBMISSION DATE: "
-                + submissionDate.format(DateTimeFormatter.ofPattern("d/MM/yyyy"))
+                + submissionDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                 + "\n";
     }
 }

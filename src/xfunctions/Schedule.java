@@ -1,4 +1,4 @@
-package functions;
+package xfunctions;
 
 import entities.Course;
 import java.time.DayOfWeek;

@@ -19,7 +19,7 @@ public class TrainersPerCourseDao extends GenericDao {
     CourseDao cd = new CourseDao();
     TrainerDao td = new TrainerDao();
 
-    public List<TrainersPerCourse> readTrainerPerCourseList() {
+    public List<TrainersPerCourse> readTrainersPerCourseList() {
         String query = "SELECT * FROM private_school.trainers_course;";
         List<TrainersPerCourse> list = new ArrayList();
         List<Course> courses = new ArrayList();
@@ -49,4 +49,25 @@ public class TrainersPerCourseDao extends GenericDao {
         }
         return list;
     }
+
+    public List<Course> readCoursesPerTrainerByTId(int id) {
+        List<Course> courses = new ArrayList();
+        CourseDao cd = new CourseDao();
+        String query = "SELECT c_id FROM trainers_course "
+                + "     WHERE t_id = ?;";
+        MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+        ResultSet rs = db.MyResultSet(id);
+        try {
+            while (rs.next()) {
+                courses.add(cd.readByCourseId(rs.getInt("c_id")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TrainersPerCourseDao.class.getName()).log(Level.SEVERE, null,
+                    ex);
+        } finally {
+            db.closeConnections();
+        }
+        return courses;
+    }
+
 }

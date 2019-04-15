@@ -95,7 +95,7 @@ VALUES	(1,1),
         (10,3);
   
 
-INSERT INTO private_school.java_objectives (j_ob_id, title)
+INSERT INTO private_school.java_objectives (c_ob_id, title)
 VALUES	(1, "ECDL Computing"),
 		(2, "Introduction to Java"),
         (3, "Understand and Use Interfaces"),
@@ -142,70 +142,39 @@ VALUES	(2, 1, "2019-02-04"),
         (3, 8, "2019-02-13"),
         (3, 9, "2019-02-14"),
 		(3, 10, "2019-02-15");
-
--- --------------------------------------------------------        
-
-CREATE TABLE assignments_students_course
-SELECT *
-FROM
-	(SELECT c_id, a_id, st_id
-	 FROM assignments_course
-		INNER JOIN students_course USING (c_id)) AS joinedtables;
- 
-ALTER TABLE private_school.assignments_students_course 
-ADD COLUMN oral_mark 		INT 	NULL 	AFTER st_id,
-ADD COLUMN total_mark 		INT 	NULL 	AFTER oral_mark;
-
-ALTER TABLE private_school.assignments_students_course 
-ADD CONSTRAINT fk_asc_c_id
-  FOREIGN KEY (c_id) REFERENCES private_school.courses (c_id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-ADD CONSTRAINT fk_asc_a_id 
-  FOREIGN KEY (a_id) REFERENCES private_school.assignments (a_id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-ADD CONSTRAINT fk_asc_s_id
-  FOREIGN KEY (st_id) REFERENCES private_school.students (st_id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
-  
-UPDATE private_school.assignments_students_course
-SET oral_mark = '20', total_mark = '90' 
-WHERE (c_id = '1') and (a_id = '1') and (st_id = '1');
-
-UPDATE private_school.assignments_students_course
-SET oral_mark = '15', total_mark = '85'
-WHERE (c_id = '1') and (a_id = '1') and (st_id = '2');
-
-INSERT INTO `private_school`.`assignments_students_course` (`c_id`, `a_id`, `st_id`) 
-VALUES	('3', '3', '9'),
-		('3', '3', '10'),
-		('3', '4', '7'),
-		('3', '4', '8'),
-		('3', '4', '9'),
-		('3', '4', '10');
--- ----------------------------------------------------------------------
-
-CREATE TABLE `private_school`.`assignments_trainers_course` (
-  `c_id` INT NOT NULL,
-  `t_id` INT NOT NULL,
-  `a_id` INT NOT NULL,
-  CONSTRAINT `fk_atc_c_id`
-    FOREIGN KEY (`c_id`) REFERENCES `private_school`.`courses` (`c_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_atc_t_id`
-    FOREIGN KEY (`t_id`) REFERENCES `private_school`.`trainers` (`t_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_atc_a_id`
-    FOREIGN KEY (`a_id`) REFERENCES `private_school`.`assignments` (`a_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
+        
+        
+INSERT INTO private_school.c_schedule_dates
+VALUES	(1, 1, "2019-02-04"),
+        (1, 2, "2019-02-04"),
+        (1, 3, "2019-02-05"),
+        (1, 4, "2019-02-05"),
+        (1, 5, "2019-02-06"),
+        (1, 6, "2019-02-06"),
+        (1, 7, "2019-02-07"),
+        (1, 8, "2019-02-07"),
+        (1, 9, "2019-02-08"),
+        (1, 10, "2019-02-08");
+        
+        
+INSERT INTO `private_school`.`assignments_students_course` (`c_id`, `a_id`, `st_id`, oral_mark, total_mark, submitted) 
+VALUES	(1, 1, 1, 15, 75, 1),
+		(1, 1, 2, 20, 80, 1),
+		(1, 1, 3, DEFAULT, DEFAULT, 0),
+        (1, 1, 4, DEFAULT, DEFAULT, 0),
+        (2, 2, 5, DEFAULT, DEFAULT, 0),
+        (2, 2, 6, DEFAULT, DEFAULT, 0),
+        (2, 2, 7, DEFAULT, DEFAULT, 0),
+        (2, 2, 8, DEFAULT, DEFAULT, 0),
+        (3, 3, 7, DEFAULT, DEFAULT, 0),
+        (3, 3, 8, DEFAULT, DEFAULT, 0),
+        (3, 3, 9, DEFAULT, DEFAULT, 0),
+        (3, 3, 10, DEFAULT, DEFAULT, 0),
+        (3, 4, 7, DEFAULT, DEFAULT, 0),
+        (3, 4, 8, DEFAULT, DEFAULT, 0),
+        (3, 4, 9, DEFAULT, DEFAULT, 0),
+        (3, 4, 10, DEFAULT, DEFAULT, 0);
+        
 INSERT INTO `private_school`.`assignments_trainers_course` (`c_id`, `a_id`, `t_id`) 
 VALUES	('1', '1', '1'),
 		('2', '2', '2'),

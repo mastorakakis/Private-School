@@ -1,4 +1,4 @@
-package functions;
+package xfunctions;
 
 import java.util.Scanner;
 

@@ -1,16 +1,14 @@
 package entities;
 
-import java.util.List;
-
-public class JavaObjective {
+public class CourseObjective {
 
     private int id;
     private String title;
 
-    public JavaObjective() {
+    public CourseObjective() {
     }
 
-    public JavaObjective(int id, String title) {
+    public CourseObjective(int id, String title) {
         this.id = id;
         this.title = title;
     }

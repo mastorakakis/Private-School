@@ -2,19 +2,16 @@ package menus;
 
 import entities.User;
 import entitiesDao.GenericDao;
-import entitiesDao.RoleDao;
 import entitiesDao.UserDao;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import functions.Password;
+import xfunctions.Password;
 
 public class Login extends GenericDao {
 
     // exit when username = exit
     public static String prompt(Scanner sc) {
-        String action;
         List<User> list = new ArrayList();
         list = new UserDao().readUserList();
         System.out.println("");
@@ -41,7 +38,6 @@ public class Login extends GenericDao {
     }
 
     public static void enter(Scanner sc, User user) {
-        boolean check = user.getRole().equals("trainer");
         switch (user.getRole()) {
             case "student":
                 StudentMenu.options(sc, user);

@@ -1,7 +1,9 @@
 package entitiesDao;
 
+import entities.Student;
 import entities.Trainer;
 import entities.User;
+import static entitiesDao.GenericDao.URL;
 import entitiesFunctions.TrainerFunctions;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,5 +94,24 @@ public class TrainerDao extends GenericDao {
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         db.MyPreparedStatement(id);
         db.closeConnections();
+    }
+
+    public Trainer readTrainerbyUid(int id) {
+        String query = "SELECT * FROM trainers "
+                + "     WHERE u_id = ?;";
+        MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+        Trainer trainer = null;
+        ResultSet rs = db.MyResultSet(id);
+        try {
+            rs.next();
+            trainer = new Trainer(rs.getInt("t_id"), rs.getString("first_name"),
+                    rs.getString("last_name"), rs.getString("t_subject"));
+        } catch (SQLException ex) {
+            Logger.getLogger(TrainerDao.class.getName()).log(Level.SEVERE, null,
+                    ex);
+        } finally {
+            db.closeConnections();
+        }
+        return trainer;
     }
 }

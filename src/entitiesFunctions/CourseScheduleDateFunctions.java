@@ -1,11 +1,9 @@
 package entitiesFunctions;
 
-import entities.Course;
-import entities.JavaScheduleDate;
+import entities.CourseScheduleDate;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -13,18 +11,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import myDatabase.MyDatabase;
 
-public class JavaScheduleDateFunctions {
+public class CourseScheduleDateFunctions {
 
-    public static JavaScheduleDate newJavaScheduleDate(Scanner sc) {
-        JavaScheduleDate javaScheduleDate = new JavaScheduleDate();
+    public static CourseScheduleDate newCourseScheduleDate(Scanner sc) {
+        CourseScheduleDate courseScheduleDate = new CourseScheduleDate();
         sc.nextLine();
-        System.out.print("Enter Java Objective id: ");
-        javaScheduleDate.setJobId(sc.nextInt());
+        System.out.print("Enter Objective id: ");
+        courseScheduleDate.setCobId(sc.nextInt());
         int flag = 0;
         do {
             DateTimeFormatter formatter;
             formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-            javaScheduleDate.setCDate(null);
+            courseScheduleDate.setCDate(null);
             try {
                 System.out.print("Enter date (dd/mm/yyyy): ");
 //                javaScheduleDate.setCDate(LocalDate.parse(sc.next(), formatter));
@@ -38,14 +36,14 @@ public class JavaScheduleDateFunctions {
                 System.out.println("Invalid Date Input.");
             }
         } while (flag == 0);
-        return javaScheduleDate;
+        return courseScheduleDate;
     }
 
-    public static JavaScheduleDate addToJavaScheduleDateTable(MyDatabase db,
-            PreparedStatement pst, JavaScheduleDate javaScheduleDate,
+    public static CourseScheduleDate addToCourseScheduleDateTable(MyDatabase db,
+            PreparedStatement pst, CourseScheduleDate javaScheduleDate,
             String query, int id) {
         try {
-            pst.setInt(1, javaScheduleDate.getJobId());
+            pst.setInt(1, javaScheduleDate.getCobId());
             pst.setDate(2, Date.valueOf(javaScheduleDate.getCDate()),
                     Calendar.getInstance());
             if (id != 0) {
@@ -58,7 +56,7 @@ public class JavaScheduleDateFunctions {
                 System.out.println("Failed");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(JavaScheduleDateFunctions.class.getName())
+            Logger.getLogger(CourseScheduleDateFunctions.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
         return javaScheduleDate;

@@ -61,11 +61,33 @@ public class StudentsPerCourseDao extends GenericDao {
                 courses.add(cd.readByCourseId(rs.getInt("c_id")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(StudentDao.class.getName()).log(Level.SEVERE, null,
+            Logger.getLogger(StudentsPerCourseDao.class.getName()).log(Level.SEVERE, null,
                     ex);
         } finally {
             db.closeConnections();
         }
         return courses;
+    }
+
+    public List<Student> readStudentsPerCourseByCIdList(int cId) {
+        String query = "SELECT * FROM private_school.students_course"
+                + "         INNER JOIN students USING (st_id) "
+                + "     WHERE c_id = ?;";
+        List<Student> list = new ArrayList();
+        MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+        ResultSet rs = db.MyResultSet(cId);
+        try {
+            while (rs.next()) {
+                Student student = new Student(rs.getInt("st_id"),
+                        rs.getString("first_name"), rs.getString("last_name"),
+                        rs.getDate("date_of_birth"), rs.getInt("tuition_fees"));
+                list.add(student);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TrainersPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.closeConnections();
+        }
+        return list;
     }
 }

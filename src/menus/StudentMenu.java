@@ -1,24 +1,17 @@
 package menus;
 
-import entities.Course;
-import entities.JavaScheduleDate;
 import entities.Student;
 import entities.User;
-import entitiesDao.CourseDao;
-import entitiesDao.JavaScheduleDateDao;
 import entitiesDao.StudentDao;
-import functions.Print;
-import functions.PrintSchedule;
-import functions.Reload;
-import java.util.List;
+import xfunctions.Print;
+import xfunctions.Reload;
 import java.util.Scanner;
-import joinedEntitiesDao.StudentsPerCourseDao;
+import joinedEntitiesFunctions.AssignmentsPerCourseFucntions;
 
 public class StudentMenu {
 
     public static void options(Scanner sc, User user) {
         StudentDao sd = new StudentDao();
-
         Student student = sd.readStudentbyUid(user.getuId());
         String choice;
         do {
@@ -26,27 +19,28 @@ public class StudentMenu {
             System.out.println("----STUDENT MENU-----");
             System.out.println("Hello " + student.getFirstName());
             System.out.println("Press:  '1' to View Course Schedule");
-            System.out.println("        '2' to View Assignment Submission Date");
-            System.out.println("        '3' to Sumbint Assignment");
+            System.out.println("        '2' to View Assignment Details");
+            System.out.println("        '3' to View Assignment Submission Date");
+            System.out.println("        '4' to Sumbit Assignment");
             System.out.println("        'X' to exit");
             System.out.print("Your option: ");
             choice = sc.next();
             switch (choice) {
                 case "1":
                     System.out.println("");
-                    PrintSchedule.student(student.getStId(), sc);
+                    Print.ScheduleOfStudent(student.getStId(), sc);
                     break;
                 case "2":
-
+                    Print.assignmentPerStudentPerCourseDetails(student.getStId());
                     break;
                 case "3":
-
+                    System.out.println("");
+                    Print.submissionDates(student.getStId());
                     break;
                 case "4":
-
+                    System.out.println("");
+                    AssignmentsPerCourseFucntions.submitAssignment(student.getStId(), sc);
                     break;
-                case "5":
-
                 case "x":
                 case "X":
                     break;

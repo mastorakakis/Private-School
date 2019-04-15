@@ -3,7 +3,7 @@ package menus;
 import entities.User;
 import entitiesDao.CourseDao;
 import java.util.Scanner;
-import functions.Print;
+import xfunctions.Print;
 
 public class CoursesMenu {
 

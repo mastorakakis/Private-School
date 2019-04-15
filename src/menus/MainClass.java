@@ -1,24 +1,6 @@
 package menus;
 
-import entities.Assignment;
-import entities.Course;
-import entities.JavaScheduleDate;
-import entities.Student;
-import entities.User;
-import entitiesDao.AssignmentDao;
-import entitiesDao.JavaScheduleDateDao;
-import entitiesDao.StudentDao;
-import entitiesDao.UserDao;
-import functions.Print;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import joinedEntitiesDao.StudentsPerCourseDao;
 
 public class MainClass {
 
@@ -37,22 +19,5 @@ public class MainClass {
                 break;
             }
         } while (action.equals("login again"));
-
-//        String query = "insert into students (st_id, first_name, last_name, tuition_fees, u_id) values (default, 'dfsgf', 'sfgfg', 2005, 21)";
-//        String URL
-//                = "jdbc:mysql://localhost:3306/private_school?serverTimezone=Europe/Athens";
-//        String USERNAME = "root";
-//        String PASS = "mast3815yq";
-//        Connection conn;
-//        try {
-//            conn = DriverManager.getConnection(URL, USERNAME, PASS);
-//            PreparedStatement pst = conn.prepareStatement(query);
-//            int result = pst.executeUpdate();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        StudentDao sd = new StudentDao();
-//        Student s = sd.createNewStudent(sc);
-//        System.out.println(s);
     }
 }
