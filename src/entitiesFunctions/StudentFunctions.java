@@ -1,5 +1,6 @@
 package entitiesFunctions;
 
+import entities.Course;
 import entities.Student;
 import entitiesDao.StudentDao;
 import static java.lang.Integer.parseInt;
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import joinedEntities.StudentsPerCourse;
+import joinedEntitiesDao.StudentsPerCourseDao;
 import myDatabase.MyDatabase;
 import xfunctions.Print;
 
@@ -22,7 +25,6 @@ public class StudentFunctions {
     public static Student newStudent(Scanner sc) {
         int fees = 0;
         Student student = new Student();
-        int flag = 0;
         do {
             sc.nextLine();
             System.out.print("Enter Student's First Name: ");
@@ -35,15 +37,13 @@ public class StudentFunctions {
             try {
                 System.out.print("Enter Birth Date (dd/mm/yyyy): ");
                 student.setDateOfBirth(LocalDate.parse(sc.next(), formatter));
-                flag = 1;
                 if (studentListContains(student)) {
                     System.out.println("Student Already exists");
-                    flag = 0;
                 }
             } catch (Exception e) {
                 System.out.println("Invalid Date Input.");
             }
-        } while (flag == 0);
+        } while (studentListContains(student));
         do {
             if (fees < 0) {
                 System.out.print("Invalid Input. Enter a Positive Number: ");
@@ -64,7 +64,7 @@ public class StudentFunctions {
 
     //to insert id=zero & to update id:='number'
     public static Student addToStudentTable(MyDatabase db, PreparedStatement pst,
-            Student student, String query, int id) {
+            Student student, int id) {
         try {
             pst.setString(1, student.getFirstName());
             pst.setString(2, student.getLastName());

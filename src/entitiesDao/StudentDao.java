@@ -71,7 +71,7 @@ public class StudentDao extends GenericDao {
                 + "     VALUES (DEFAULT, ?, ?, ?, ?, '" + ud.readMaxUid() + "')";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         PreparedStatement pst = db.MyPreparedStatement();
-        StudentFunctions.addToStudentTable(db, pst, student, query, 0);
+        StudentFunctions.addToStudentTable(db, pst, student, 0);
         db.closeConnections();
         return student;
     }
@@ -84,7 +84,7 @@ public class StudentDao extends GenericDao {
                 + "     WHERE st_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         PreparedStatement pst = db.MyPreparedStatement();
-        StudentFunctions.addToStudentTable(db, pst, student, query, id);
+        StudentFunctions.addToStudentTable(db, pst, student, id);
         db.closeConnections();
         return student;
     }

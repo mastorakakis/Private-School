@@ -4,6 +4,7 @@ import entitiesDao.GenericDao;
 import joinedEntities.AssignmentsPerCourse;
 import entities.Assignment;
 import entities.Course;
+import entities.Student;
 import entitiesDao.AssignmentDao;
 import entitiesDao.CourseDao;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ public class AssignmentsPerCourseDao extends GenericDao {
     CourseDao cd = new CourseDao();
     AssignmentDao ad = new AssignmentDao();
 
-    public List<AssignmentsPerCourse> readAssignmentPerCourseList() {
+    public List<AssignmentsPerCourse> readAssignmentsPerCourseList() {
         String query = "SELECT * FROM private_school.assignments_course;";
         List<AssignmentsPerCourse> list = new ArrayList();
         List<Course> courses = new ArrayList();
@@ -48,5 +49,26 @@ public class AssignmentsPerCourseDao extends GenericDao {
             db.closeConnections();
         }
         return list;
+    }
+
+    public List<Integer> readAssignmentIdsPerCourseByCIdList(int cId) {
+        String query = "SELECT * FROM private_school.assignments_course"
+                + "         INNER JOIN assignments USING (a_id) "
+                + "     WHERE c_id = ?;";
+        List<Integer> aIds = new ArrayList();
+        MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+        ResultSet rs = db.MyResultSet(cId);
+        try {
+            while (rs.next()) {
+                int aId = rs.getInt("a_id");
+                aIds.add(aId);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignmentsPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.closeConnections();
+
+        }
+        return aIds;
     }
 }

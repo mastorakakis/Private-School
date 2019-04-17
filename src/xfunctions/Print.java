@@ -70,6 +70,25 @@ public class Print {
         }
     }
 
+    public static void coursesPerStudent() {
+        StudentDao sd = new StudentDao();
+        StudentsPerCourseDao spcDao = new StudentsPerCourseDao();
+        List<StudentsPerCourse> studentsPerCourse = spcDao.readStudentsPerCourseList();
+        List<Student> allStudents = sd.readStudentList();
+        for (Student student : allStudents) {
+            System.out.println(student);
+            System.out.printf("%-5s %s", " ", "Courses: ");
+            for (StudentsPerCourse spc : studentsPerCourse) {
+                if (spc.getStudents().contains(student)) {
+                    Course c = spc.getCourse();
+                    System.out.printf("(%d. %s - %s - %s) ", c.getcId(),
+                            c.getTitle(), c.getStream(), c.getType());
+                }
+            }
+            System.out.println("");
+        }
+    }
+
     public static void trainersPerCourse(List<TrainersPerCourse> trainersPerCourse) {
         for (TrainersPerCourse tpc : trainersPerCourse) {
             System.out.println("");

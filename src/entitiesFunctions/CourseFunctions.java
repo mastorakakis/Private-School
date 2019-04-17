@@ -1,16 +1,23 @@
 package entitiesFunctions;
 
 import entities.Course;
+import entities.Student;
+import entitiesDao.CourseDao;
+import entitiesDao.StudentDao;
+import static java.lang.Integer.parseInt;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import myDatabase.MyDatabase;
+import xfunctions.Print;
 
 //creates a student instance
 public class CourseFunctions {
@@ -96,5 +103,29 @@ public class CourseFunctions {
                     null, ex);
         }
         return course;
+    }
+
+    public static int checkImportId(CourseDao cd, List<Course> courses, Scanner sc) {
+        List<Integer> ids = new ArrayList();
+        courses = cd.readCourseList();
+        Print.courses(courses);
+        for (Course course : courses) {
+            ids.add(course.getcId());
+        }
+        String cId;
+        sc.nextLine();
+        do {
+            try {
+                System.out.print("Select a Course by ID: ");
+                cId = sc.next();
+                if (!ids.contains(parseInt(cId))) {
+                    System.out.println("Invalid option.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid option");
+                cId = "0";
+            }
+        } while (!ids.contains(parseInt(cId)));
+        return parseInt(cId);
     }
 }

@@ -1,12 +1,20 @@
 package entitiesFunctions;
 
+import entities.Student;
 import entities.Trainer;
+import entitiesDao.StudentDao;
+import entitiesDao.TrainerDao;
+import static entitiesFunctions.StudentFunctions.studentListContains;
+import static java.lang.Integer.parseInt;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import myDatabase.MyDatabase;
+import xfunctions.Print;
 
 public class TrainerFunctions {
 
@@ -14,12 +22,17 @@ public class TrainerFunctions {
     public static Trainer newTrainer(Scanner sc) {
         Trainer trainer = new Trainer();
         sc.nextLine();
-        System.out.print("Enter Trainer's First Name: ");
-        trainer.setFirstName(sc.nextLine());
-        System.out.print("Enter Trainer's Last Name: ");
-        trainer.setLastName(sc.nextLine());
-        System.out.print("Enter Trainer's Subject: ");
-        trainer.setSubject(sc.nextLine());
+        do {
+            System.out.print("Enter Trainer's First Name: ");
+            trainer.setFirstName(sc.nextLine());
+            System.out.print("Enter Trainer's Last Name: ");
+            trainer.setLastName(sc.nextLine());
+            System.out.print("Enter Trainer's Subject: ");
+            trainer.setSubject(sc.nextLine());
+            if (trainerListContains(trainer)) {
+                System.out.println("Trainer Already exists");
+            }
+        } while (trainerListContains(trainer));
         return trainer;
     }
 
@@ -44,5 +57,40 @@ public class TrainerFunctions {
                     null, ex);
         }
         return trainer;
+    }
+
+    public static boolean trainerListContains(Trainer trainer) {
+        TrainerDao sd = new TrainerDao();
+        List<Trainer> trainers = sd.readTrainerList();
+        for (Trainer t : trainers) {
+            if (t.equals(trainer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int checkImportId(TrainerDao sd, List<Trainer> trainers, Scanner sc) {
+        List<Integer> ids = new ArrayList();
+        trainers = sd.readTrainerList();
+        Print.trainers(trainers);
+        for (Trainer trainer : trainers) {
+            ids.add(trainer.gettId());
+        }
+        String tId;
+        sc.nextLine();
+        do {
+            try {
+                System.out.print("Select a Trainer by ID: ");
+                tId = sc.next();
+                if (!ids.contains(parseInt(tId))) {
+                    System.out.println("Invalid option.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid option");
+                tId = "0";
+            }
+        } while (!ids.contains(parseInt(tId)));
+        return parseInt(tId);
     }
 }

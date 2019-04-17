@@ -12,7 +12,7 @@ public class Assignment extends User {
     private String description;
     private LocalDate submissionDate;
     private int oralMark = 10;
-    private int totalMark;
+    private int totalMark = 100;
 
     public Assignment() {
     }

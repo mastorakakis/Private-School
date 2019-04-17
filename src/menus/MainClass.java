@@ -4,6 +4,7 @@ import entities.Student;
 import entitiesDao.StudentDao;
 import java.util.List;
 import java.util.Scanner;
+import joinedEntitiesDao.StudentsPerCourseDao;
 import xfunctions.Print;
 
 public class MainClass {
@@ -15,6 +16,9 @@ public class MainClass {
         System.out.println("                To exit type 'exit' in the username field");
 
 //testing area
+//
+//        StudentsPerCourseDao s = new StudentsPerCourseDao();
+//        s.createStudentsPerCourse(sc);
         String action;
         do {
             action = Login.prompt(sc);

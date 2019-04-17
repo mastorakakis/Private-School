@@ -34,7 +34,7 @@ public class AssignmentsMenu {
                         sc.nextLine();
                         break;
                     case "2":
-                        Print.assignmentsPerCourse(apc.readAssignmentPerCourseList());
+                        Print.assignmentsPerCourse(apc.readAssignmentsPerCourseList());
                         System.out.print("Press enter to continue...");
                         sc.nextLine();
                         sc.nextLine();

@@ -1,23 +1,30 @@
 package entitiesFunctions;
 
 import entities.Assignment;
+import entities.Student;
+import entitiesDao.AssignmentDao;
+import entitiesDao.StudentDao;
+import static java.lang.Integer.parseInt;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import myDatabase.MyDatabase;
+import xfunctions.Print;
 
 public class AssignmentFunctions {
 
     //creates an assignment instance
     public static Assignment newAssignment(Scanner sc) {
         Assignment assignment = new Assignment();
-//        sc.nextLine();
+        sc.nextLine();
         System.out.print("Enter Assignment Title: ");
         assignment.setTitle(sc.nextLine());
         System.out.print("Enter Assignment Description: ");
@@ -81,5 +88,29 @@ public class AssignmentFunctions {
                     null, ex);
         }
         return assignment;
+    }
+
+    public static int checkImportId(AssignmentDao ad, List<Assignment> assignments, Scanner sc) {
+        List<Integer> ids = new ArrayList();
+        assignments = ad.readAssignmentList();
+        Print.assignments(assignments);
+        for (Assignment assignment : assignments) {
+            ids.add(assignment.getaId());
+        }
+        String aId;
+        sc.nextLine();
+        do {
+            try {
+                System.out.print("Select a Assignment by ID: ");
+                aId = sc.next();
+                if (!ids.contains(parseInt(aId))) {
+                    System.out.println("Invalid option.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid option");
+                aId = "0";
+            }
+        } while (!ids.contains(parseInt(aId)));
+        return parseInt(aId);
     }
 }

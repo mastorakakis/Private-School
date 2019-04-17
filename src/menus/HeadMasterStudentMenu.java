@@ -13,7 +13,7 @@ import xfunctions.Reload;
 
 public class HeadMasterStudentMenu {
 
-    public static void options(Scanner sc, User user) {
+    public static void options(Scanner sc) {
         StudentDao sd = new StudentDao();
         Student student = new Student();
         List<Student> students = null;
@@ -24,7 +24,7 @@ public class HeadMasterStudentMenu {
             System.out.println("----STUDENT MENU-----");
             System.out.println("Head Master");
             System.out.println("Press:  '1' to View All Students");
-            System.out.println("        '2' to Edit a student");
+            System.out.println("        '2' to Edit a Student");
             System.out.println("        '3' to Add a New Student");
             System.out.println("        '4' to Delete a Student");
             System.out.println("        'X' to exit");
@@ -53,21 +53,18 @@ public class HeadMasterStudentMenu {
                     System.out.println("");
                     stId = StudentFunctions.checkImportId(sd, students, sc);
                     sd.deleteByStudentId(stId);
+                    System.out.println("Student Deleted");
                     break;
                 case "x":
                 case "X":
-                    break;
+                    continue;
                 default:
                     System.out.println("Invalid Option");
                     continue;
             }
-            if (choice.equals("x") || choice.equals("X")) {
-                choice = Reload.menu(choice, sc);
-            } else {
-                System.out.print("Press enter to continue...");
-                sc.nextLine();
-                sc.nextLine();
-            }
+            System.out.print("Press enter to continue...");
+            sc.nextLine();
+            sc.nextLine();
         } while (!(choice.equals("x") || choice.equals("X")));
     }
 }
