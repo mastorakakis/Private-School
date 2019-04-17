@@ -4,9 +4,7 @@ import entities.Trainer;
 import entities.User;
 import entitiesDao.TrainerDao;
 import java.util.Scanner;
-import joinedEntities.StudentsPerCourse;
-import joinedEntitiesDao.AssignmentPerStudentPerCourseDao;
-import joinedEntitiesDao.StudentsPerCourseDao;
+import joinedEntitiesDao.AssignmentsPerStudentPerCourseDao;
 import joinedEntitiesDao.TrainersPerCourseDao;
 import xfunctions.Print;
 import xfunctions.Reload;
@@ -17,7 +15,7 @@ public class TrainerMenu {
         TrainerDao sd = new TrainerDao();
         TrainersPerCourseDao tpcDao = new TrainersPerCourseDao();
         Trainer trainer = sd.readTrainerbyUid(user.getuId());
-        AssignmentPerStudentPerCourseDao asc = new AssignmentPerStudentPerCourseDao();
+        AssignmentsPerStudentPerCourseDao asc = new AssignmentsPerStudentPerCourseDao();
         String choice;
         do {
             System.out.println("");

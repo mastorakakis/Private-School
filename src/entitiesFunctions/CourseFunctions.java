@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static joinedEntitiesFunctions.StudentsPerCourseFunctions.courseFromCIdList;
 import myDatabase.MyDatabase;
 import xfunctions.Print;
 
@@ -127,5 +128,15 @@ public class CourseFunctions {
             }
         } while (!ids.contains(parseInt(cId)));
         return parseInt(cId);
+    }
+
+    public static Course getCourse(Scanner sc) {
+        List<Integer> cIds = new ArrayList();
+        List<Course> courses = new CourseDao().readCourseList();
+        for (Course course : courses) {
+            cIds.add(course.getcId());
+        }
+        Course course = courseFromCIdList(cIds, sc);
+        return course;
     }
 }

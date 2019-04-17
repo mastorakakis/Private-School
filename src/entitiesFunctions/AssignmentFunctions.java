@@ -1,9 +1,7 @@
 package entitiesFunctions;
 
 import entities.Assignment;
-import entities.Student;
 import entitiesDao.AssignmentDao;
-import entitiesDao.StudentDao;
 import static java.lang.Integer.parseInt;
 import java.sql.Date;
 import java.sql.PreparedStatement;

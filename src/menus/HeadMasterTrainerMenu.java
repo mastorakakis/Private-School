@@ -1,16 +1,11 @@
 package menus;
 
-import entities.Student;
 import entities.Trainer;
-import entities.User;
-import entitiesDao.StudentDao;
 import entitiesDao.TrainerDao;
-import entitiesFunctions.StudentFunctions;
 import entitiesFunctions.TrainerFunctions;
 import java.util.List;
 import java.util.Scanner;
 import xfunctions.Print;
-import xfunctions.Reload;
 
 public class HeadMasterTrainerMenu {
 

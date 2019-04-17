@@ -10,29 +10,29 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import joinedEntities.AssignmentPerStudentPerCourse;
+import joinedEntities.AssignmentsPerStudentPerCourse;
 import myDatabase.MyDatabase;
 import xfunctions.Print;
 
-public class AssignmentPerStudentPerCourseDao extends GenericDao {
+public class AssignmentsPerStudentPerCourseDao extends GenericDao {
 
-    public List<AssignmentPerStudentPerCourse> readAssignmentsPerStudentPerCourseList() {
-        List<AssignmentPerStudentPerCourse> list = new ArrayList();
+    public List<AssignmentsPerStudentPerCourse> readAssignmentsPerStudentPerCourseList() {
+        List<AssignmentsPerStudentPerCourse> list = new ArrayList();
         String query = "SELECT * "
                 + "     FROM private_school.assignments_students_course;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet();
         try {
             while (rs.next()) {
-                AssignmentPerStudentPerCourse asc
-                        = new AssignmentPerStudentPerCourse(rs.getInt("c_id"),
+                AssignmentsPerStudentPerCourse asc
+                        = new AssignmentsPerStudentPerCourse(rs.getInt("c_id"),
                                 rs.getInt("a_id"), rs.getInt("st_id"),
                                 rs.getInt("oral_mark"), rs.getInt("total_mark"),
                                 rs.getBoolean("submitted"));
                 list.add(asc);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AssignmentPerStudentPerCourseDao.class.getName()).log(Level.SEVERE,
+            Logger.getLogger(AssignmentsPerStudentPerCourseDao.class.getName()).log(Level.SEVERE,
                     null, ex);
         } finally {
             db.closeConnections();
@@ -40,23 +40,23 @@ public class AssignmentPerStudentPerCourseDao extends GenericDao {
         return list;
     }
 
-    public List<AssignmentPerStudentPerCourse> readAssignmentsPerStudentPerCourseByStIdList(int id) {
-        List<AssignmentPerStudentPerCourse> list = new ArrayList();
+    public List<AssignmentsPerStudentPerCourse> readAssignmentsPerStudentPerCourseByStIdList(int id) {
+        List<AssignmentsPerStudentPerCourse> list = new ArrayList();
         String query = "SELECT * FROM private_school.assignments_students_course "
                 + "     WHERE st_id = ?;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
-        AssignmentPerStudentPerCourse asc = null;
+        AssignmentsPerStudentPerCourse asc = null;
         ResultSet rs = db.MyResultSet(id);
         try {
             while (rs.next()) {
-                asc = new AssignmentPerStudentPerCourse(rs.getInt("c_id"),
+                asc = new AssignmentsPerStudentPerCourse(rs.getInt("c_id"),
                         rs.getInt("a_id"), rs.getInt("st_id"),
                         rs.getInt("oral_mark"), rs.getInt("total_mark"),
                         rs.getBoolean("submitted"));
                 list.add(asc);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AssignmentPerStudentPerCourseDao.class.getName()).log(Level.SEVERE,
+            Logger.getLogger(AssignmentsPerStudentPerCourseDao.class.getName()).log(Level.SEVERE,
                     null, ex);
         } finally {
             db.closeConnections();
@@ -64,24 +64,24 @@ public class AssignmentPerStudentPerCourseDao extends GenericDao {
         return list;
     }
 
-    public List<AssignmentPerStudentPerCourse> readAssignmentsPerStudentPerCourseByCIdList(int id) {
-        List<AssignmentPerStudentPerCourse> list = new ArrayList();
+    public List<AssignmentsPerStudentPerCourse> readAssignmentsPerStudentPerCourseByCIdList(int id) {
+        List<AssignmentsPerStudentPerCourse> list = new ArrayList();
         String query = "SELECT * FROM private_school.assignments_students_course "
                 + "     WHERE c_id = ?"
                 + "     ORDER BY st_id;";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
-        AssignmentPerStudentPerCourse asc = null;
+        AssignmentsPerStudentPerCourse asc = null;
         ResultSet rs = db.MyResultSet(id);
         try {
             while (rs.next()) {
-                asc = new AssignmentPerStudentPerCourse(rs.getInt("c_id"),
+                asc = new AssignmentsPerStudentPerCourse(rs.getInt("c_id"),
                         rs.getInt("a_id"), rs.getInt("st_id"),
                         rs.getInt("oral_mark"), rs.getInt("total_mark"),
                         rs.getBoolean("submitted"));
                 list.add(asc);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AssignmentPerStudentPerCourseDao.class.getName()).log(Level.SEVERE,
+            Logger.getLogger(AssignmentsPerStudentPerCourseDao.class.getName()).log(Level.SEVERE,
                     null, ex);
         } finally {
             db.closeConnections();
@@ -103,13 +103,13 @@ public class AssignmentPerStudentPerCourseDao extends GenericDao {
                 System.out.println("Failed");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AssignmentPerStudentPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AssignmentsPerStudentPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         db.closeConnections();
     }
 
-    public List<AssignmentPerStudentPerCourse> readUnsubmittedAssignmentListByTId(int tId, Scanner sc) {
-        List<AssignmentPerStudentPerCourse> list = readAssignmentsPerStudentPerCourseByCIdList(tId);
+    public List<AssignmentsPerStudentPerCourse> readUnsubmittedAssignmentListByTId(int tId, Scanner sc) {
+        List<AssignmentsPerStudentPerCourse> list = readAssignmentsPerStudentPerCourseByCIdList(tId);
         String query = "SELECT  c_id, assignments_students_course.a_id, st_id, "
                 + "             oral_mark, total_mark, submitted "
                 + "     FROM assignments_trainers_course "
@@ -117,17 +117,17 @@ public class AssignmentPerStudentPerCourseDao extends GenericDao {
                 + "     WHERE t_id = ? AND submitted = 0";
         MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
         ResultSet rs = db.MyResultSet(tId);
-        AssignmentPerStudentPerCourse asc = null;
+        AssignmentsPerStudentPerCourse asc = null;
         try {
             while (rs.next()) {
-                asc = new AssignmentPerStudentPerCourse(rs.getInt("c_id"),
+                asc = new AssignmentsPerStudentPerCourse(rs.getInt("c_id"),
                         rs.getInt("a_id"), rs.getInt("st_id"),
                         rs.getInt("oral_mark"), rs.getInt("total_mark"),
                         rs.getBoolean("submitted"));
                 list.add(asc);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AssignmentPerStudentPerCourseDao.class.getName()).log(Level.SEVERE,
+            Logger.getLogger(AssignmentsPerStudentPerCourseDao.class.getName()).log(Level.SEVERE,
                     null, ex);
         } finally {
             db.closeConnections();
@@ -136,7 +136,7 @@ public class AssignmentPerStudentPerCourseDao extends GenericDao {
     }
 
     public void markAssignments(int tId, Scanner sc) {
-        List<AssignmentPerStudentPerCourse> list
+        List<AssignmentsPerStudentPerCourse> list
                 = Print.assignmentsPerStudentPerCourse(tId, sc);
         boolean contains = false;
         boolean exit = false;
@@ -147,12 +147,12 @@ public class AssignmentPerStudentPerCourseDao extends GenericDao {
         do {
             try {
                 System.out.println("");
-                System.out.print("Choose Student ID and sumbitted Assignment ID separated by space\n"
+                System.out.print("Select Student ID and sumbitted Assignment ID separated by space\n"
                         + "Type zero zero (0 0) to exit\n"
                         + "Your choice (StudentID   AssignmentID): ");
                 stId = sc.next();
                 aId = sc.next();
-                for (AssignmentPerStudentPerCourse asc : list) {
+                for (AssignmentsPerStudentPerCourse asc : list) {
                     if (asc.getStId() == parseInt(stId)
                             && asc.getaId() == parseInt(aId)
                             && asc.isSubmitted() == true) {
@@ -196,7 +196,7 @@ public class AssignmentPerStudentPerCourseDao extends GenericDao {
                     System.out.println("Failed");
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(AssignmentPerStudentPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AssignmentsPerStudentPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
             }
             db.closeConnections();
         }

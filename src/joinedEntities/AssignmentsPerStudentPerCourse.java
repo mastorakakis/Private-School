@@ -2,7 +2,7 @@ package joinedEntities;
 
 import entitiesDao.AssignmentDao;
 
-public class AssignmentPerStudentPerCourse {
+public class AssignmentsPerStudentPerCourse {
 
     private int cId;
     private int aId;
@@ -11,10 +11,10 @@ public class AssignmentPerStudentPerCourse {
     private int totalMark;
     private boolean submitted;
 
-    public AssignmentPerStudentPerCourse() {
+    public AssignmentsPerStudentPerCourse() {
     }
 
-    public AssignmentPerStudentPerCourse(int cId, int aId, int stId, int oralMark, int totalMark, boolean submitted) {
+    public AssignmentsPerStudentPerCourse(int cId, int aId, int stId, int oralMark, int totalMark, boolean submitted) {
         this.cId = cId;
         this.aId = aId;
         this.stId = stId;

@@ -44,13 +44,13 @@ public class AssignmentsMenu {
                         break;
                     case "4":
                         Print.assignments(sd.readAssignmentList());
-                        System.out.print("Choose a assignment: ");
+                        System.out.print("Select an assignment: ");
                         id = sc.nextInt();
                         sd.updateByAssignmentId(id, sc);
                         break;
                     case "5":
                         Print.assignments(sd.readAssignmentList());
-                        System.out.print("Choose a assignment: ");
+                        System.out.print("Select an assignment: ");
                         id = sc.nextInt();
                         sd.deleteByAssignmentId(id);
                     case "x":

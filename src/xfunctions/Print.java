@@ -10,16 +10,18 @@ import entitiesDao.AssignmentDao;
 import entitiesDao.CourseDao;
 import entitiesDao.CourseScheduleDateDao;
 import entitiesDao.StudentDao;
+import entitiesDao.TrainerDao;
 import static java.lang.Integer.parseInt;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import joinedEntities.AssignmentPerStudentPerCourse;
+import joinedEntities.AssignmentsPerStudentPerCourse;
 import joinedEntities.AssignmentsPerCourse;
 import joinedEntities.StudentsPerCourse;
 import joinedEntities.TrainersPerCourse;
-import joinedEntitiesDao.AssignmentPerStudentPerCourseDao;
+import joinedEntitiesDao.AssignmentsPerStudentPerCourseDao;
+import joinedEntitiesDao.AssignmentsPerCourseDao;
 import joinedEntitiesDao.StudentsPerCourseDao;
 import joinedEntitiesDao.TrainersPerCourseDao;
 
@@ -89,6 +91,44 @@ public class Print {
         }
     }
 
+    public static void coursesPerAssignment() {
+        AssignmentDao ad = new AssignmentDao();
+        AssignmentsPerCourseDao apcDao = new AssignmentsPerCourseDao();
+        List<AssignmentsPerCourse> assignmentsPerCourse = apcDao.readAssignmentsPerCourseList();
+        List<Assignment> allAssignments = ad.readAssignmentList();
+        for (Assignment assignment : allAssignments) {
+            System.out.print(assignment);
+            System.out.printf("%-5s %s", " ", "Courses: ");
+            for (AssignmentsPerCourse apc : assignmentsPerCourse) {
+                if (apc.getAssignments().contains(assignment)) {
+                    Course c = apc.getCourse();
+                    System.out.printf("(%d. %s - %s - %s) ", c.getcId(),
+                            c.getTitle(), c.getStream(), c.getType());
+                }
+            }
+            System.out.println("");
+        }
+    }
+
+    public static void coursesPerTrainer() {
+        TrainerDao td = new TrainerDao();
+        TrainersPerCourseDao tpcDao = new TrainersPerCourseDao();
+        List<TrainersPerCourse> trainersPerCourse = tpcDao.readTrainersPerCourseList();
+        List<Trainer> allTrainers = td.readTrainerList();
+        for (Trainer trainer : allTrainers) {
+            System.out.println(trainer);
+            System.out.printf("%-5s %s", " ", "Courses: ");
+            for (TrainersPerCourse tpc : trainersPerCourse) {
+                if (tpc.getTrainers().contains(trainer)) {
+                    Course c = tpc.getCourse();
+                    System.out.printf("(%d. %s - %s - %s) ", c.getcId(),
+                            c.getTitle(), c.getStream(), c.getType());
+                }
+            }
+            System.out.println("");
+        }
+    }
+
     public static void trainersPerCourse(List<TrainersPerCourse> trainersPerCourse) {
         for (TrainersPerCourse tpc : trainersPerCourse) {
             System.out.println("");
@@ -111,7 +151,7 @@ public class Print {
                     "C-ID", "TITLE", "STREAM", "TYPE", "DURATION");
             System.out.println(apc.getCourse());
             System.out.println("--------------------------------------------------------------");
-            for (Assignment assignment : apc.getAssigmnents()) {
+            for (Assignment assignment : apc.getAssignments()) {
                 System.out.println(assignment);
             }
         }
@@ -134,11 +174,11 @@ public class Print {
     }
 
     public static void submissionDates(int id) {
-        List<AssignmentPerStudentPerCourse> ascList
-                = new AssignmentPerStudentPerCourseDao().readAssignmentsPerStudentPerCourseByStIdList(id);
+        List<AssignmentsPerStudentPerCourse> ascList
+                = new AssignmentsPerStudentPerCourseDao().readAssignmentsPerStudentPerCourseByStIdList(id);
         System.out.printf("%-5s %-25s %-11s %-10s %-10s %s\n", "ID", "TITLE", "SUBMISSION", "ORAL MARK", "TOTAL MARK", "COURSE");
         System.out.println("---------------------------------------------------------------------");
-        for (AssignmentPerStudentPerCourse asc : ascList) {
+        for (AssignmentsPerStudentPerCourse asc : ascList) {
             Course c = new CourseDao().readByCourseId(asc.getcId());
             Student st = new StudentDao().readByStudentId(asc.getStId());
             Assignment a = new AssignmentDao().readByAssignmentId(asc.getaId());
@@ -163,7 +203,7 @@ public class Print {
         String cId = "0";
         do {
             try {
-                System.out.print("Choose a course: ");
+                System.out.print("Select a course: ");
                 cId = sc.next();
                 if (!ids.contains(parseInt(cId))) {
                     System.out.println("Invalid option.");
@@ -190,7 +230,7 @@ public class Print {
         String cId = "0";
         do {
             try {
-                System.out.print("Choose a course: ");
+                System.out.print("Select a course: ");
                 cId = sc.next();
                 if (!ids.contains(parseInt(cId))) {
                     System.out.println("Invalid option.");
@@ -209,9 +249,9 @@ public class Print {
     }
 
     public static void assignmentPerStudentPerCourseDetails(int stId) {
-        AssignmentPerStudentPerCourseDao ascDao = new AssignmentPerStudentPerCourseDao();
-        List<AssignmentPerStudentPerCourse> list = ascDao.readAssignmentsPerStudentPerCourseByStIdList(stId);
-        for (AssignmentPerStudentPerCourse asc : list) {
+        AssignmentsPerStudentPerCourseDao ascDao = new AssignmentsPerStudentPerCourseDao();
+        List<AssignmentsPerStudentPerCourse> list = ascDao.readAssignmentsPerStudentPerCourseByStIdList(stId);
+        for (AssignmentsPerStudentPerCourse asc : list) {
             System.out.println(asc);
             System.out.println("");
         }
@@ -223,7 +263,7 @@ public class Print {
         courses(list);
     }
 
-    public static List<AssignmentPerStudentPerCourse> assignmentsPerStudentPerCourse(int tId, Scanner sc) {
+    public static List<AssignmentsPerStudentPerCourse> assignmentsPerStudentPerCourse(int tId, Scanner sc) {
         StudentDao sd = new StudentDao();
         AssignmentDao ad = new AssignmentDao();
         TrainersPerCourseDao tpcDao = new TrainersPerCourseDao();
@@ -237,7 +277,7 @@ public class Print {
         String cId = "0";
         do {
             try {
-                System.out.print("Choose a course: ");
+                System.out.print("Select a course: ");
                 cId = sc.next();
                 if (!ids.contains(parseInt(cId))) {
                     System.out.println("Invalid option.");
@@ -247,11 +287,11 @@ public class Print {
                 cId = "0";
             }
         } while (!ids.contains(parseInt(cId)));
-        AssignmentPerStudentPerCourseDao spcDao = new AssignmentPerStudentPerCourseDao();
-        List<AssignmentPerStudentPerCourse> ascList
+        AssignmentsPerStudentPerCourseDao spcDao = new AssignmentsPerStudentPerCourseDao();
+        List<AssignmentsPerStudentPerCourse> ascList
                 = spcDao.readAssignmentsPerStudentPerCourseByCIdList(parseInt(cId));
         int stId = 0;
-        for (AssignmentPerStudentPerCourse asc : ascList) {
+        for (AssignmentsPerStudentPerCourse asc : ascList) {
             if (stId != asc.getStId()) {
                 System.out.println("");
                 System.out.println(sd.readByStudentId(asc.getStId()));

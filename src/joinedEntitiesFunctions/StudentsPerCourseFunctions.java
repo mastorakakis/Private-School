@@ -7,7 +7,6 @@ import entitiesDao.StudentDao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import xfunctions.Print;
 
 public class StudentsPerCourseFunctions {
 
@@ -59,15 +58,5 @@ public class StudentsPerCourseFunctions {
         }
         Student student = studentFromStIdList(stIds, sc);
         return student;
-    }
-
-    public static Course getCourse(Scanner sc) {
-        List<Integer> cIds = new ArrayList();
-        List<Course> courses = new CourseDao().readCourseList();
-        for (Course course : courses) {
-            cIds.add(course.getcId());
-        }
-        Course course = courseFromCIdList(cIds, sc);
-        return course;
     }
 }

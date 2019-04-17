@@ -1,15 +1,11 @@
 package menus;
 
 import entities.Student;
-import entities.User;
 import entitiesDao.StudentDao;
 import entitiesFunctions.StudentFunctions;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import joinedEntitiesFunctions.AssignmentsPerCourseFucntions;
 import xfunctions.Print;
-import xfunctions.Reload;
 
 public class HeadMasterStudentMenu {
 

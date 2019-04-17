@@ -5,7 +5,7 @@ import entities.Course;
 import entities.Student;
 import entitiesDao.CourseDao;
 import entitiesDao.StudentDao;
-import entitiesFunctions.StudentFunctions;
+import entitiesFunctions.CourseFunctions;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -96,11 +96,32 @@ public class StudentsPerCourseDao extends GenericDao {
         return list;
     }
 
-    public int addToStudentPerCourse(Scanner sc) {
+    public List<Integer> readStudentsIdsPerCourseByCIdList(int cId) {
+        String query = "SELECT * FROM private_school.students_course"
+                + "         INNER JOIN students USING (st_id) "
+                + "     WHERE c_id = ?;";
+        List<Integer> stIds = new ArrayList();
+        MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+        ResultSet rs = db.MyResultSet(cId);
+        try {
+            while (rs.next()) {
+                int stId = rs.getInt("st_id");
+                stIds.add(stId);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentsPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.closeConnections();
+
+        }
+        return stIds;
+    }
+
+    public int addToStudentsPerCourse(Scanner sc) {
         int result = 0;
         Print.coursesPerStudent();
         Student student = StudentsPerCourseFunctions.getStudent(sc);
-        Course course = StudentsPerCourseFunctions.getCourse(sc);
+        Course course = CourseFunctions.getCourse(sc);
         List<Student> students
                 = readStudentsPerCourseByCIdList(course.getcId());
         if (students.contains(student)) {
@@ -123,16 +144,13 @@ public class StudentsPerCourseDao extends GenericDao {
         } finally {
             db.closeConnections();
         }
-        addToAssignmentPerStudentPerCourse(student, course);
+        addToAssignmentsPerStudentPerCourse(student, course);
         return result;
-
-// add stId to tables
     }
 
-    public void addToAssignmentPerStudentPerCourse(Student student, Course course) {
-        AssignmentsPerCourseDao apcDao = new AssignmentsPerCourseDao();
+    public void addToAssignmentsPerStudentPerCourse(Student student, Course course) {
         List<Integer> aIds
-                = new AssignmentsPerCourseDao().readAssignmentIdsPerCourseByCIdList(course.getcId());
+                = new AssignmentsPerCourseDao().readAssignmentsIdsPerCourseByCIdList(course.getcId());
         for (Integer aId : aIds) {
             String query = "INSERT INTO assignments_students_course "
                     + "                 (c_id, a_id, st_id) "
@@ -140,14 +158,59 @@ public class StudentsPerCourseDao extends GenericDao {
                     + student.getStId() + ");";
             MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
             PreparedStatement pst = db.MyPreparedStatement();
-            int result;
             try {
-                result = pst.executeUpdate();
-                if (result > 0) {
-                    System.out.println("Success");
-                } else {
-                    System.out.println("Failed");
-                }
+                pst.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentsPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                db.closeConnections();
+            }
+        }
+    }
+
+    public int removeFromStudentsPerCourse(Scanner sc) {
+        int result = 0;
+        Print.coursesPerStudent();
+        Student student = StudentsPerCourseFunctions.getStudent(sc);
+        Course course = CourseFunctions.getCourse(sc);
+        List<Student> students
+                = readStudentsPerCourseByCIdList(course.getcId());
+        if (!students.contains(student)) {
+            System.out.println("Student is not in that course");
+            return result;
+        }
+        String query = "DELETE FROM students_course "
+                + "     WHERE st_id = " + student.getStId() + " AND c_id = "
+                + course.getcId();
+        MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+        PreparedStatement pst = db.MyPreparedStatement();
+        try {
+            result = pst.executeUpdate();
+            if (result > 0) {
+                System.out.println("Success");
+            } else {
+                System.out.println("Failed");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentsPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.closeConnections();
+        }
+        removeFromAssignmentsPerStudentPerCourse(student, course);
+        return result;
+    }
+
+    public void removeFromAssignmentsPerStudentPerCourse(Student student, Course course) {
+        List<Integer> aIds
+                = new AssignmentsPerCourseDao().readAssignmentsIdsPerCourseByCIdList(course.getcId());
+        for (Integer aId : aIds) {
+            String query = "Delete FROM assignments_students_course "
+                    + "     WHERE st_id = " + student.getStId() + " AND c_id = "
+                    + course.getcId() + " AND a_id = " + aId;
+            MyDatabase db = new MyDatabase(URL, USERNAME, PASS, query);
+            PreparedStatement pst = db.MyPreparedStatement();
+            try {
+                pst.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(StudentsPerCourseDao.class.getName()).log(Level.SEVERE, null, ex);
             } finally {

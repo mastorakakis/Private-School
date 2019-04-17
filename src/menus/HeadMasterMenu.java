@@ -1,11 +1,7 @@
 package menus;
 
-import entities.Student;
 import entities.User;
-import entitiesDao.StudentDao;
 import java.util.Scanner;
-import joinedEntitiesFunctions.AssignmentsPerCourseFucntions;
-import xfunctions.Print;
 import xfunctions.Reload;
 
 public class HeadMasterMenu {
@@ -42,7 +38,9 @@ public class HeadMasterMenu {
                     HeadMasterAssignmentMenu.options(sc);
                     continue;
                 case "5":
+                    System.out.println("");
                     HeadMasterEditMenu.options(sc);
+                    continue;
                 case "x":
                 case "X":
                     break;

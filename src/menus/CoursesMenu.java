@@ -35,13 +35,13 @@ public class CoursesMenu {
                         break;
                     case "3":
                         Print.courses(cd.readCourseList());
-                        System.out.print("Choose a course: ");
+                        System.out.print("Select a course: ");
                         id = sc.nextInt();
                         cd.updateByCourseId(id, sc);
                         break;
                     case "4":
                         Print.courses(cd.readCourseList());
-                        System.out.print("Choose a course: ");
+                        System.out.print("Select a course: ");
                         id = sc.nextInt();
                         cd.deleteByCourseId(id);
                     case "x":

@@ -1,6 +1,5 @@
 package entitiesFunctions;
 
-import entities.Course;
 import entities.Student;
 import entitiesDao.StudentDao;
 import static java.lang.Integer.parseInt;
@@ -14,8 +13,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import joinedEntities.StudentsPerCourse;
-import joinedEntitiesDao.StudentsPerCourseDao;
 import myDatabase.MyDatabase;
 import xfunctions.Print;
 

@@ -17,16 +17,12 @@ public class Login extends GenericDao {
         System.out.println("");
         System.out.println("Login");
         System.out.print("Username: ");
-
-//        String loginUsername = sc.next();
-//        if (loginUsername.equals("exit")) {
-//            return "exit";
-//        }
-//        System.out.print("Password: ");
-//        String loginPassword = Password.encrypt(sc.next());
-//
-        String loginUsername = "head";
-        String loginPassword = "96e89a298e0a9f469b9ae458d6afae9f";
+        String loginUsername = sc.next();
+        if (loginUsername.equals("exit")) {
+            return "exit";
+        }
+        System.out.print("Password: ");
+        String loginPassword = Password.encrypt(sc.next());
         String check = "not found";
         for (User user : list) {
             if (user.getUsername().equals(loginUsername)

@@ -1,6 +1,5 @@
 package entitiesDao;
 
-import entities.Student;
 import entities.Trainer;
 import entities.User;
 import static entitiesDao.GenericDao.URL;

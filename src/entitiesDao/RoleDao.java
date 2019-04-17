@@ -1,7 +1,6 @@
 package entitiesDao;
 
 import entities.Role;
-import entities.Student;
 import static entitiesDao.GenericDao.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;

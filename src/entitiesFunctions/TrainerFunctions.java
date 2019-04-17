@@ -1,10 +1,7 @@
 package entitiesFunctions;
 
-import entities.Student;
 import entities.Trainer;
-import entitiesDao.StudentDao;
 import entitiesDao.TrainerDao;
-import static entitiesFunctions.StudentFunctions.studentListContains;
 import static java.lang.Integer.parseInt;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

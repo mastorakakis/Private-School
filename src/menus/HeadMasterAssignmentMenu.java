@@ -1,11 +1,8 @@
 package menus;
 
 import entities.Assignment;
-import entities.Student;
 import entitiesDao.AssignmentDao;
-import entitiesDao.StudentDao;
 import entitiesFunctions.AssignmentFunctions;
-import entitiesFunctions.StudentFunctions;
 import java.util.List;
 import java.util.Scanner;
 import xfunctions.Print;

@@ -1,12 +1,9 @@
 package entitiesFunctions;
 
-import entities.Role;
 import entities.User;
-import entitiesDao.RoleDao;
 import entitiesDao.UserDao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;

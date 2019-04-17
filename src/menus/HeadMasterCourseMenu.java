@@ -3,8 +3,6 @@ package menus;
 import entities.Course;
 import entitiesDao.CourseDao;
 import entitiesFunctions.CourseFunctions;
-import entitiesFunctions.StudentFunctions;
-import entitiesFunctions.TrainerFunctions;
 import java.util.List;
 import java.util.Scanner;
 import xfunctions.Print;
